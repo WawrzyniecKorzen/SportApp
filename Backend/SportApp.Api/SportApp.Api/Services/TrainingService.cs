@@ -1,5 +1,6 @@
-﻿using SportApp.Api.Models;
+﻿using SportApp.Api.DTOs.Trainings;
 using SportApp.Api.Repositories;
+using SportApp.Api.Models;
 
 namespace SportApp.Api.Services
 {
@@ -11,32 +12,52 @@ namespace SportApp.Api.Services
         {
             _repository = repository;
         }
-        public async Task<IEnumerable<Training>> GetAllAsync()
+        public async Task<IEnumerable<TrainingResponse>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            var trainings = await _repository.GetAllAsync();
+            return trainings.Select(MapToResponse);
         }
 
-        public async Task<Training> GetByIdAsync(int id)
+        public async Task<TrainingResponse> GetByIdAsync(int id)
         {
-            return await _repository.GetByIdAsync(id);
+            var training = await _repository.GetByIdAsync(id);
+            if (training == null) {return null;}
+            return MapToResponse(training);
         }
 
-        public Task<Training> AddAsync(Training training)
+        public async Task<TrainingResponse> AddAsync(CreateTrainingRequest request)
         {
-            return _repository.AddAsync(training);
+            var training = new Training
+            {
+                Type = request.Type,
+                Date = request.Date.ToUniversalTime(),
+                Duration = request.Duration,
+                Distance = request.Distance,
+                Calories = request.Calories,
+                Description = request.Description
+            };
+            Console.WriteLine($"Date: {training.Date}");
+            Console.WriteLine($"Date Kind: {training.Date.Kind}");
+            Console.WriteLine($"CreatedAt: {training.CreationDate}");
+            Console.WriteLine($"CreatedAt Kind: {training.CreationDate.Kind}");
+
+            var createdTraining = await _repository.AddAsync(training);
+
+            return MapToResponse(createdTraining);
         }
 
-        public async Task<bool> UpdateAsync(int id, Training training)
+        public async Task<bool> UpdateAsync(int id, UpdateTrainingRequest request)
         {
             var existingTraining = await _repository.GetByIdAsync(id);
-            if (existingTraining == null) return false;
 
-            existingTraining.Type = training.Type;
-            existingTraining.Date = training.Date;
-            existingTraining.Duration = training.Duration;
-            existingTraining.Distance = training.Distance;
-            existingTraining.Calories = training.Calories;
-            existingTraining.Description = training.Description;
+            if (existingTraining == null){ return false; }
+
+            existingTraining.Type = request.Type;
+            existingTraining.Date = request.Date.ToUniversalTime();
+            existingTraining.Duration = request.Duration;
+            existingTraining.Distance = request.Distance;
+            existingTraining.Calories = request.Calories;
+            existingTraining.Description = request.Description;
 
             await _repository.UpdateAsync(existingTraining);
 
@@ -52,6 +73,22 @@ namespace SportApp.Api.Services
             await _repository.DeleteAsync(training);
 
             return true;
+        }
+
+        private static TrainingResponse MapToResponse(Training training)
+        {
+            return new TrainingResponse
+            {
+                Id = training.Id,
+                UserId = training.UserId,
+                Type = training.Type,
+                Date = training.Date,
+                Duration = training.Duration,
+                Distance = training.Distance,
+                Calories = training.Calories,
+                Description = training.Description,
+                CreatedAt = training.CreationDate
+            };
         }
     }
 }

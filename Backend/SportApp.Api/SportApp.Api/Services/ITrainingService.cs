@@ -1,15 +1,16 @@
-﻿using SportApp.Api.Models;
+﻿using SportApp.Api.DTOs.Trainings;
+using SportApp.Api.Models;
 
 namespace SportApp.Api.Services
 {
     public interface ITrainingService
     {
-        Task<IEnumerable<Training>> GetAllAsync();
+        Task<IEnumerable<TrainingResponse>> GetAllAsync();
 
-        Task<Training> GetByIdAsync(int id);
-        Task<Training> AddAsync(Training training);
+        Task<TrainingResponse> GetByIdAsync(int id);
+        Task<TrainingResponse> AddAsync(CreateTrainingRequest request);
 
-        Task<bool> UpdateAsync(int id, Training training);
+        Task<bool> UpdateAsync(int id, UpdateTrainingRequest request);
 
         Task<bool> DeleteAsync(int id);
     }

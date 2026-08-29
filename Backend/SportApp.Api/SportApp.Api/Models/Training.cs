@@ -5,12 +5,12 @@
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Type { get; set; } = string.Empty;
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } //= DateTime.UtcNow;
         public int Duration {  get; set; }
         public double Distance { get; set; }
         public int Calories { get; set; }
         public string? Description { get; set; } // bo opcjonalny
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime CreationDate { get; set; } = DateTime.UtcNow;
 
         public User User { get; set; }
 

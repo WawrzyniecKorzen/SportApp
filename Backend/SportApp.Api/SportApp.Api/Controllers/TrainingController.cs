@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SportApp.Api.Services;
-using SportApp.Api.Models; 
+using SportApp.Api.DTOs.Trainings;
 
 namespace SportApp.Api.Controllers;
 
 [ApiController]
-[Route("/api[controller]")]
+[Route("/api/[controller]")]
 public class TrainingController : ControllerBase
 {
     private readonly ITrainingService _service;
@@ -16,7 +16,7 @@ public class TrainingController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Training>>> GetAll()
+    public async Task<ActionResult<IEnumerable<TrainingResponse>>> GetAll()
     {
         var trainings = await _service.GetAllAsync();
 
@@ -26,7 +26,7 @@ public class TrainingController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Training>> GetById(int id)
+    public async Task<ActionResult<TrainingResponse>> GetById(int id)
     {
         var training = await _service.GetAllAsync();
 
@@ -36,17 +36,17 @@ public class TrainingController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Training>> Create(Training training)
+    public async Task<ActionResult<TrainingResponse>> Create(CreateTrainingRequest request)
     {
-        var createdTraining = await _service.AddAsync(training);
+        var createdTraining = await _service.AddAsync(request);
 
         return CreatedAtAction(nameof(GetById), new {id = createdTraining.Id}, createdTraining);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, Training training)
+    public async Task<IActionResult> Update(int id, UpdateTrainingRequest request)
     {
-        var updated = await _service.UpdateAsync(id, training);
+        var updated = await _service.UpdateAsync(id, request);
 
         if (!updated) return NotFound();
 

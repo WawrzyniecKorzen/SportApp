@@ -1,4 +1,3 @@
-using System.Reflection.Metadata;
 using Microsoft.EntityFrameworkCore;
 using SportApp.Api.Data;
 using SportApp.Api.Repositories;
@@ -28,5 +27,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
