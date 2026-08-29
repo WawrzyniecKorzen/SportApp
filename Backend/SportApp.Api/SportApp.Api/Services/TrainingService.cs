@@ -5,9 +5,9 @@ namespace SportApp.Api.Services
 {
     public class TrainingService : ITrainingService
     {
-        private readonly ITrainigRepository _repository;
+        private readonly ITrainingRepository _repository;
 
-        public TrainingService(ITrainigRepository repository)
+        public TrainingService(ITrainingRepository repository)
         {
             _repository = repository;
         }

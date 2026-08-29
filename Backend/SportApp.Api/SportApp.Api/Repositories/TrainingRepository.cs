@@ -4,7 +4,7 @@ using SportApp.Api.Models;
 
 namespace SportApp.Api.Repositories
 {
-    public class TrainingRepository :ITrainigRepository
+    public class TrainingRepository :ITrainingRepository
     {
         private readonly AppDbContext _context;
 

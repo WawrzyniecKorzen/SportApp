@@ -2,7 +2,7 @@
 
 namespace SportApp.Api.Repositories
 {
-    public interface ITrainigRepository
+    public interface ITrainingRepository
     {
         Task<IEnumerable<Training>> GetAllAsync();
         Task<Training?> GetByIdAsync(int id);
