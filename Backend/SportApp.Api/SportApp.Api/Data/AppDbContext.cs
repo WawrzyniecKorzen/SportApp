@@ -20,7 +20,7 @@ namespace SportApp.Api.Data
             modelBuilder.Entity<Training>()
                 .HasOne(t => t.User)
                 .WithMany(u => u.Trainings)
-                .HasForeignKey(t => t.User.Id)
+                .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
