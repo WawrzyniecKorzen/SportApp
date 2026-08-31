@@ -13,6 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>options.UseNpgsql(builder.
 
 builder.Services.AddScoped<ITrainingRepository, TrainingRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddScoped<ITrainingService, TrainingService>();
 builder.Services.AddScoped<IAuthService, AuthService>();

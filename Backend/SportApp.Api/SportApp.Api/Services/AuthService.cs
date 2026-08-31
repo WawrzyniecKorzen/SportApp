@@ -9,10 +9,12 @@ namespace SportApp.Api.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly PasswordHasher<User> _passwordHasher;
-        public AuthService(IUserRepository userRepository)
+        private readonly IJwtService _jwtService;
+        public AuthService(IUserRepository userRepository, IJwtService jwtService)
         {
             _userRepository = userRepository;
             _passwordHasher = new PasswordHasher<User>();
+            _jwtService = jwtService;
         }
 
         public async Task<AuthResponse> LoginAsync(LoginRequest request)
@@ -25,8 +27,11 @@ namespace SportApp.Api.Services
 
             if (result == PasswordVerificationResult.Failed) { return null; }
 
+            var token = _jwtService.GenerateToken(user);
+
             return new AuthResponse
             {
+                Token = token,
                 UserId = user.Id,
                 Email = user.Email,
                 FirstName = user.FirstName,

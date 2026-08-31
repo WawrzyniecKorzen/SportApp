@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>0bd1b404-4f89-47d0-b668-fc13948fbf04</UserSecretsId>
   </PropertyGroup>
-S
+
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.30" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.30" />
