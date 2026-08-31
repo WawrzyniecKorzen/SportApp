@@ -20,7 +20,7 @@ namespace SportApp.Api.Services
         {
             var secretKey = _config["Jwt:SecretKey"];
             var issuer = _config["Jwt:Issuer"];
-            var audience = _config["JwtService:Audience"];
+            var audience = _config["Jwt:Audience"];
 
             if (string.IsNullOrEmpty(secretKey)) 
             {
