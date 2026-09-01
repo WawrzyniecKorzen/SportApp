@@ -12,23 +12,24 @@ namespace SportApp.Api.Services
         {
             _repository = repository;
         }
-        public async Task<IEnumerable<TrainingResponse>> GetAllAsync()
+        public async Task<IEnumerable<TrainingResponse>> GetAllAsync(int userId)
         {
-            var trainings = await _repository.GetAllAsync();
+            var trainings = await _repository.GetAllAsync(userId);
             return trainings.Select(MapToResponse);
         }
 
-        public async Task<TrainingResponse> GetByIdAsync(int id)
+        public async Task<TrainingResponse> GetByIdAsync(int id, int userId)
         {
-            var training = await _repository.GetByIdAsync(id);
+            var training = await _repository.GetByIdAsync(id, userId);
             if (training == null) {return null;}
             return MapToResponse(training);
         }
 
-        public async Task<TrainingResponse> AddAsync(CreateTrainingRequest request)
+        public async Task<TrainingResponse> AddAsync(CreateTrainingRequest request, int userId)
         {
             var training = new Training
             {
+                UserId = userId,
                 Type = request.Type,
                 Date = request.Date.ToUniversalTime(),
                 Duration = request.Duration,
@@ -46,9 +47,9 @@ namespace SportApp.Api.Services
             return MapToResponse(createdTraining);
         }
 
-        public async Task<bool> UpdateAsync(int id, UpdateTrainingRequest request)
+        public async Task<bool> UpdateAsync(int id, UpdateTrainingRequest request, int userId)
         {
-            var existingTraining = await _repository.GetByIdAsync(id);
+            var existingTraining = await _repository.GetByIdAsync(id, userId);
 
             if (existingTraining == null){ return false; }
 
@@ -64,9 +65,9 @@ namespace SportApp.Api.Services
             return true;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id, int userId)
         {
-            var training = await _repository.GetByIdAsync(id);
+            var training = await _repository.GetByIdAsync(id, userId);
 
             if (training == null) return false;
 

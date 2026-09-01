@@ -13,14 +13,14 @@ namespace SportApp.Api.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Training>> GetAllAsync()
+        public async Task<IEnumerable<Training>> GetAllAsync(int userId)
         {
-            return await _context.Trainings.AsNoTracking().ToListAsync();
+            return await _context.Trainings.AsNoTracking().Where(t => t.UserId == userId).ToListAsync();
         }
 
-        public async Task<Training?> GetByIdAsync(int id)
+        public async Task<Training?> GetByIdAsync(int id, int userId)
         {
-            return await _context.Trainings.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+            return await _context.Trainings.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
         }
 
         public async Task<Training> AddAsync(Training training)
