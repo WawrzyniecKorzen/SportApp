@@ -22,6 +22,9 @@ namespace SportApp.Api.Data
                 .WithMany(u => u.Trainings)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            //zamiana enum na string:
+            modelBuilder.Entity<Training>().Property(t => t.Type).HasConversion<string>();
         }
     }
 }

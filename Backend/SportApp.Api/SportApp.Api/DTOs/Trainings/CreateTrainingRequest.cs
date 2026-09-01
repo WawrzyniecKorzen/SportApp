@@ -1,8 +1,10 @@
-﻿namespace SportApp.Api.DTOs.Trainings
+﻿using SportApp.Api.Models;
+
+namespace SportApp.Api.DTOs.Trainings
 {
     public class CreateTrainingRequest
     {
-        public string Type { get; set; } = string.Empty;
+        public TrainingType Type { get; set; }
         public DateTime Date { get; set; }
         public int Duration { get; set; }
         public double Distance { get; set; }
