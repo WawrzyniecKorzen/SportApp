@@ -42,7 +42,7 @@ namespace SportApp.Api.Services
         public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
         {
             var existingUser = await _userRepository.GetByEmailAsync(request.Email);
-            if (existingUser != null) { throw new InvalidOperationException("User does not exist"); }
+            if (existingUser != null) { throw new InvalidOperationException("User with this email already exists"); }
 
             var user = new User
             {
