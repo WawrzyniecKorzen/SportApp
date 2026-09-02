@@ -25,6 +25,8 @@ namespace SportApp.Api.Data
 
             //zamiana enum na string:
             modelBuilder.Entity<Training>().Property(t => t.Type).HasConversion<string>();
+
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         }
     }
 }
