@@ -19,7 +19,8 @@ namespace SportApp.Api.Services
 
         public async Task<AuthResponse> LoginAsync(LoginRequest request)
         {
-            var user = await _userRepository.GetByEmailAsync(request.Email);
+            var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+            var user = await _userRepository.GetByEmailAsync(normalizedEmail);
 
             if (user == null) {return null;}
 
@@ -41,12 +42,13 @@ namespace SportApp.Api.Services
 
         public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
         {
-            var existingUser = await _userRepository.GetByEmailAsync(request.Email);
+            var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+            var existingUser = await _userRepository.GetByEmailAsync(normalizedEmail);
             if (existingUser != null) { throw new InvalidOperationException("User with this email already exists"); }
 
             var user = new User
             {
-                Email = request.Email,
+                Email = normalizedEmail,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 CreatedDate = DateTime.UtcNow
