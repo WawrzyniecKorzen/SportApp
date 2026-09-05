@@ -20,13 +20,19 @@ namespace SportApp.Api.Repositories
 
             if (parameters.From.HasValue)
             {
-                query = query.Where(t => t.Date >= parameters.From.Value);
+                var fromDate = parameters.From.Value.Date;
+                query = query.Where(t => t.Date >= fromDate);
             }
 
             if (parameters.To.HasValue)
             {
                 var toDateExclusive = parameters.To.Value.Date.AddDays(1);
                 query = query.Where(t => t.Date < toDateExclusive);
+            }
+            else if (parameters.From.HasValue)
+            {
+                var todayExclusive = DateTime.UtcNow.Date.AddDays(1);
+                query = query.Where(t => t.Date < todayExclusive);
             }
 
             if (parameters.Type.HasValue)

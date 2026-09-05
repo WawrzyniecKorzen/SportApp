@@ -9,6 +9,10 @@
         public const int MaxCalories = 100000;
         public const int MaxDescriptionLength = 1000;
 
+        //training query constants
+        public const int MaxTrainingsPerPage = 100;
+        public const int MaxPages = int.MaxValue;
+
         //user data constants
         public const int MinPasswordLength = 8;
         public const int MaxPasswordLength = 128;
