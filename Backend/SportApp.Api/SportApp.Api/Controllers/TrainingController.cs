@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using SportApp.Api.Services;
 using SportApp.Api.DTOs.Trainings;
+using SportApp.Api.Models;
 
 namespace SportApp.Api.Controllers;
 
@@ -82,6 +83,26 @@ public class TrainingController : ControllerBase
         if (!deleted) return NotFound();
 
         return NoContent();
+    }
+
+    [HttpGet("stats")]
+    public async Task<ActionResult<TrainingStatsResponse>> GetStats(
+    [FromQuery] DateTime? from,
+    [FromQuery] DateTime? to,
+    [FromQuery] TrainingType? type)
+    {
+        var userId = GetUserId();
+
+        if (userId == null) return Unauthorized();
+
+        if (from.HasValue && to.HasValue && from.Value.Date > to.Value.Date)
+        {
+            return BadRequest("The 'from' date cannot be later than the 'to' date.");
+        }
+
+        var stats = await _service.GetStatsAsync(userId.Value, from, to, type);
+
+        return Ok(stats);
     }
 
     private int? GetUserId()
