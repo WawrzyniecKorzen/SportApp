@@ -42,11 +42,20 @@ namespace SportApp.Api.Repositories
 
             var totalItems = await query.CountAsync();
 
-            var items = await query
-                .OrderByDescending(t => t.Date)
-                .Skip((parameters.Page - 1) * parameters.PageSize)
-                .Take(parameters.PageSize)
-                .ToListAsync();
+            var orderedQuery = query.OrderByDescending(t => t.Date);
+
+            IQueryable<Training> finalQuery;
+
+            if (parameters.Limit.HasValue)
+            {
+                finalQuery = orderedQuery.Take(parameters.Limit.Value);
+            }
+            else
+            {
+                finalQuery = orderedQuery.Skip((parameters.Page - 1) * parameters.PageSize).Take(parameters.PageSize);
+            }
+
+            var items = await finalQuery.ToListAsync();
 
             return new TrainingPagedResult
             {

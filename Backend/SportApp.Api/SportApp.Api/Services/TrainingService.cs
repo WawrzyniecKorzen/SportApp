@@ -16,14 +16,15 @@ namespace SportApp.Api.Services
         {
             var result = await _repository.GetAllAsync(userId, parameters);
 
+            var totalPages = parameters.Limit.HasValue ? 1: (int)Math.Ceiling(result.TotalItems / (double)parameters.PageSize);
+
             return new TrainingListResponse
             {
                 Items = result.Items.Select(MapToResponse),
                 Page = parameters.Page,
                 PageSize = parameters.PageSize,
                 TotalItems = result.TotalItems,
-                TotalPages = (int)Math.Ceiling(
-                    result.TotalItems / (double)parameters.PageSize)
+                TotalPages = totalPages
             };
         }
 
