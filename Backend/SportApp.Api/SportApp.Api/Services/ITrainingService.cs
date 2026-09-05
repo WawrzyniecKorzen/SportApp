@@ -13,5 +13,8 @@ namespace SportApp.Api.Services
         Task<bool> UpdateAsync(int id, UpdateTrainingRequest request, int UserId);
 
         Task<bool> DeleteAsync(int id, int UserId);
+
+        //statystyki
+        Task<TrainingStatsResponse> GetStatsAsync(int userId,DateTime? from,DateTime? to,TrainingType? type);
     }
 }

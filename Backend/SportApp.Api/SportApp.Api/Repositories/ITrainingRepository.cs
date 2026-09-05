@@ -10,5 +10,8 @@ namespace SportApp.Api.Repositories
         Task<Training> AddAsync(Training training);
         Task UpdateAsync(Training training);
         Task DeleteAsync(Training training);
+
+        //statystyki
+        Task<TrainingStatsResponse> GetStatsAsync(int userId, DateTime? from, DateTime? to, TrainingType? type);
     }
 }

@@ -78,5 +78,58 @@ namespace SportApp.Api.Repositories
             _context.Trainings.Remove(training);
             await _context.SaveChangesAsync();
         }
+
+
+        //statystyki
+        public async Task<TrainingStatsResponse> GetStatsAsync(int userId, DateTime? from, DateTime? to, TrainingType? type)
+        {
+            var query = _context.Trainings.AsNoTracking().Where(t => t.UserId == userId);
+
+            if (from.HasValue)
+            {
+                var fromDate = from.Value.Date;
+                query = query.Where(t => t.Date >= fromDate);
+            }
+
+            if (to.HasValue)
+            {
+                var toDateExclusive = to.Value.Date.AddDays(1);
+                query = query.Where(t => t.Date < toDateExclusive);
+            }
+
+            if (type.HasValue)
+            {
+                query = query.Where(t => t.Type == type.Value);
+            }
+
+            var totalTrainings = await query.CountAsync();
+
+            var totalDuration = await query.SumAsync(t => (int?)t.Duration) ?? 0;
+
+            var totalDistance = await query.SumAsync(t => (double?)t.Distance) ?? 0;
+
+            var totalCalories = await query.SumAsync(t => (int?)t.Calories) ?? 0;
+
+            var byType = await query.GroupBy(t => t.Type).
+                Select(g => new TrainingTypeStatsResponse
+                {
+                    Type = g.Key,
+                    TrainingsCount = g.Count(),
+                    TotalDuration = g.Sum(t => t.Duration),
+                    TotalDistance = g.Sum(t => t.Distance),
+                    TotalCalories = g.Sum(t => t.Calories)
+                })
+                .OrderBy(x => x.Type)
+                .ToListAsync();
+
+            return new TrainingStatsResponse
+            {
+                TotalTrainings = totalTrainings,
+                TotalDuration = totalDuration,
+                TotalDistance = totalDistance,
+                TotalCalories = totalCalories,
+                ByType = byType
+            };
+        }
     }
 }

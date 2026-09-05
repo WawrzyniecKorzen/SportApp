@@ -100,5 +100,11 @@ namespace SportApp.Api.Services
                 CreatedAt = training.CreationDate
             };
         }
+
+        //statystyki
+        public async Task<TrainingStatsResponse> GetStatsAsync(int userId, DateTime? from, DateTime? to, TrainingType? type)
+        {
+            return await _repository.GetStatsAsync(userId, from, to, type);
+        }
     }
 }
