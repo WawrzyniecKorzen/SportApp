@@ -37,9 +37,18 @@ namespace SportApp.Api.Services
             
             if (user == null) { return null; }
 
+            var newEmail = request.Email.Trim().ToLowerInvariant();
+
+            var existingUser = await _repository.GetByEmailAsync(newEmail);
+
+            if (existingUser != null && existingUser.Id != userId)
+            {
+                throw new InvalidOperationException("User with this email already exists");
+            }
+
             user.FirstName = request.FirstName.Trim();
             user.LastName = request.LastName.Trim();
-            user.Email = request.Email.Trim().ToLowerInvariant();
+            user.Email = newEmail;
 
             await _repository.UpdateUserAsync(user);
 

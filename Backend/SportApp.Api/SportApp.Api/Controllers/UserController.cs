@@ -48,11 +48,18 @@ namespace SportApp.Api.Controllers
                 return Unauthorized();
             }
 
-            var user = await _service.UpdateCurrentUserAsync(userId, request);
+            try
+            {
+                var user = await _service.UpdateCurrentUserAsync(userId, request);
 
-            if (user == null) { return NotFound(); }
+                if (user == null) { return NotFound(); }
 
-            return Ok(user);
+                return Ok(user);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
+            }
         }
     }
 }
