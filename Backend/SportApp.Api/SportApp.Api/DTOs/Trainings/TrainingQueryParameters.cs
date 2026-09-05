@@ -15,5 +15,8 @@ namespace SportApp.Api.DTOs.Trainings
 
         [Range(1, ValidationConstants.MaxTrainingsPerPage)]
         public int PageSize { get; set; } = 20;
+
+        [Range(1, ValidationConstants.MaxLimit)]
+        public int? Limit { get; set; }
     }
 }

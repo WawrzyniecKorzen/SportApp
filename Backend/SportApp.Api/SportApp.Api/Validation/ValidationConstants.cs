@@ -12,6 +12,7 @@
         //training query constants
         public const int MaxTrainingsPerPage = 100;
         public const int MaxPages = int.MaxValue;
+        public const int MaxLimit = 100;
 
         //user data constants
         public const int MinPasswordLength = 8;
