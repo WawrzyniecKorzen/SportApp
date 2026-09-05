@@ -5,7 +5,7 @@ namespace SportApp.Api.Services
 {
     public interface ITrainingService
     {
-        Task<IEnumerable<TrainingResponse>> GetAllAsync(int UserId);
+        Task<TrainingListResponse> GetAllAsync(int UserId, TrainingQueryParameters parameters);
 
         Task<TrainingResponse> GetByIdAsync(int id, int UserId);
         Task<TrainingResponse> AddAsync(CreateTrainingRequest request, int UserId);

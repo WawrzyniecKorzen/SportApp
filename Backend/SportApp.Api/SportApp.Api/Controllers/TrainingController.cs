@@ -19,15 +19,13 @@ public class TrainingController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TrainingResponse>>> GetAll()
+    public async Task<ActionResult<TrainingListResponse>> GetAll([FromQuery] TrainingQueryParameters parameters)
     {
         var userId = GetUserId();
 
         if (userId == null) return Unauthorized();
 
-        var trainings = await _service.GetAllAsync(userId.Value);
-
-        if (trainings == null) return NotFound();
+        var trainings = await _service.GetAllAsync(userId.Value, parameters);
 
         return Ok(trainings);
     }

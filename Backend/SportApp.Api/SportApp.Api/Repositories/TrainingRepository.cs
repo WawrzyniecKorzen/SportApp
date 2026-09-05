@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportApp.Api.Data;
+using SportApp.Api.DTOs.Trainings;
 using SportApp.Api.Models;
 
 namespace SportApp.Api.Repositories
@@ -13,9 +14,39 @@ namespace SportApp.Api.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Training>> GetAllAsync(int userId)
+        public async Task<TrainingPagedResult> GetAllAsync(int userId, TrainingQueryParameters parameters)
         {
-            return await _context.Trainings.AsNoTracking().Where(t => t.UserId == userId).ToListAsync();
+            var query = _context.Trainings.AsNoTracking().Where(t => t.UserId == userId);
+
+            if (parameters.From.HasValue)
+            {
+                query = query.Where(t => t.Date >= parameters.From.Value);
+            }
+
+            if (parameters.To.HasValue)
+            {
+                var toDateExclusive = parameters.To.Value.Date.AddDays(1);
+                query = query.Where(t => t.Date < toDateExclusive);
+            }
+
+            if (parameters.Type.HasValue)
+            {
+                query = query.Where(t => t.Type == parameters.Type.Value);
+            }
+
+            var totalItems = await query.CountAsync();
+
+            var items = await query
+                .OrderByDescending(t => t.Date)
+                .Skip((parameters.Page - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToListAsync();
+
+            return new TrainingPagedResult
+            {
+                Items = items,
+                TotalItems = totalItems
+            };
         }
 
         public async Task<Training?> GetByIdAsync(int id, int userId)

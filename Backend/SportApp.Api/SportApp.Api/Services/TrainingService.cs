@@ -12,10 +12,19 @@ namespace SportApp.Api.Services
         {
             _repository = repository;
         }
-        public async Task<IEnumerable<TrainingResponse>> GetAllAsync(int userId)
+        public async Task<TrainingListResponse> GetAllAsync(int userId, TrainingQueryParameters parameters)
         {
-            var trainings = await _repository.GetAllAsync(userId);
-            return trainings.Select(MapToResponse);
+            var result = await _repository.GetAllAsync(userId, parameters);
+
+            return new TrainingListResponse
+            {
+                Items = result.Items.Select(MapToResponse),
+                Page = parameters.Page,
+                PageSize = parameters.PageSize,
+                TotalItems = result.TotalItems,
+                TotalPages = (int)Math.Ceiling(
+                    result.TotalItems / (double)parameters.PageSize)
+            };
         }
 
         public async Task<TrainingResponse> GetByIdAsync(int id, int userId)
