@@ -30,5 +30,27 @@ namespace SportApp.Api.Services
                 CreatedDate = user.CreatedDate
             };
         }
+
+        public async Task<UserResponse?> UpdateCurrentUserAsync(int userId, UpdateUserRequest request)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+            
+            if (user == null) { return null; }
+
+            user.FirstName = request.FirstName.Trim();
+            user.LastName = request.LastName.Trim();
+            user.Email = request.Email.Trim().ToLowerInvariant();
+
+            await _repository.UpdateUserAsync(user);
+
+            return new UserResponse
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CreatedDate = user.CreatedDate
+            };
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace SportApp.Api.Repositories
         Task<User?> GetByEmailAsync(string email);
         Task<User?> GetByIdAsync(int id);
         Task<User> AddUserAsync(User user);
+        Task UpdateUserAsync(User user);
     }
 }

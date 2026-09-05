@@ -37,5 +37,22 @@ namespace SportApp.Api.Controllers
 
             return Ok(user);
         }
+
+        [HttpPut("me")]
+        public async Task<ActionResult<UserResponse>> UpdateCurrentUser([FromBody] UpdateUserRequest request)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return Unauthorized();
+            }
+
+            var user = await _service.UpdateCurrentUserAsync(userId, request);
+
+            if (user == null) { return NotFound(); }
+
+            return Ok(user);
+        }
     }
 }

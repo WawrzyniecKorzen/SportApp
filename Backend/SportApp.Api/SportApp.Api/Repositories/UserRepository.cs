@@ -30,5 +30,11 @@ namespace SportApp.Api.Repositories
 
             return user;
         }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }
