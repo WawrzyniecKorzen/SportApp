@@ -28,7 +28,7 @@ namespace SportApp.Api.Services
             };
         }
 
-        public async Task<TrainingResponse> GetByIdAsync(int id, int userId)
+        public async Task<TrainingResponse?> GetByIdAsync(int id, int userId)
         {
             var training = await _repository.GetByIdAsync(id, userId);
             if (training == null) {return null;}
@@ -47,10 +47,6 @@ namespace SportApp.Api.Services
                 Calories = request.Calories,
                 Description = request.Description
             };
-            Console.WriteLine($"Date: {training.Date}");
-            Console.WriteLine($"Date Kind: {training.Date.Kind}");
-            Console.WriteLine($"CreatedAt: {training.CreationDate}");
-            Console.WriteLine($"CreatedAt Kind: {training.CreationDate.Kind}");
 
             var createdTraining = await _repository.AddAsync(training);
 

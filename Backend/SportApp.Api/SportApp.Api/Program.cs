@@ -24,14 +24,14 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 
 builder.Services.AddScoped<ITrainingService, TrainingService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        var secretKey = builder.Configuration["Jwt:SecretKey"];
+        var secretKey = builder.Configuration["Jwt:SecretKey"]
+    ?? throw new InvalidOperationException("JWT SecretKey is not configured.");
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
