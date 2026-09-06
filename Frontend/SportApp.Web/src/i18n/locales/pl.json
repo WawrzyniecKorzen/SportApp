@@ -1,0 +1,9 @@
+{
+    "common": {
+        "login": "Zaloguj",
+        "logout": "Wyloguj",
+        "register": "Zarejestruj się",
+        "save": "Zapisz",
+        "cancel": "Anuluj"
+    }
+}
