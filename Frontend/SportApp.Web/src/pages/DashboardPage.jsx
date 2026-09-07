@@ -1,14 +1,4 @@
-function DashboardPage() {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            <p>Tu będzie główny ekran aplikacji.</p>
-        </div>
-    );
-}
-
-export default DashboardPage;
-/* import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 function DashboardPage() {
     const { user, token } = useAuth();
@@ -23,4 +13,4 @@ function DashboardPage() {
     );
 }
 
-export default DashboardPage; */
+export default DashboardPage; 
