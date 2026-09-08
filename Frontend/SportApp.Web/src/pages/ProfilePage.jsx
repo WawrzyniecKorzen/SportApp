@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import {
     getCurrentUser,
@@ -8,8 +9,10 @@ import {
 import { useAuth } from "../context/useAuth";
 
 function ProfilePage() {
-    const [user, setUser] = useState(null);
+    const { t } = useTranslation();
     const { updateUser } = useAuth();
+
+    const [user, setUser] = useState(null);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -33,14 +36,14 @@ function ProfilePage() {
             } catch (error) {
                 console.error("Get current user error:", error);
 
-                setError("Nie udało się pobrać danych użytkownika.");
+                setError(t("profile.loadError"));
             } finally {
                 setIsLoading(false);
             }
         };
 
         loadUser();
-    }, []);
+    }, [t]);
 
     const handleEdit = () => {
         setError("");
@@ -80,35 +83,43 @@ function ProfilePage() {
             setEmail(updatedUser.email);
 
             setIsEditing(false);
-            setSuccess("Dane użytkownika zostały zapisane.");
+            setSuccess(t("profile.saveSuccess"));
         } catch (error) {
             console.error("Update current user error:", error);
 
-            setError("Nie udało się zapisać danych użytkownika.");
+            setError(t("profile.saveError"));
         } finally {
             setIsSaving(false);
         }
     };
 
     if (isLoading) {
-        return <p>Ładowanie danych użytkownika...</p>;
+        return <p>{t("profile.loading")}</p>;
     }
 
     return (
         <div>
-            <h1>Profil</h1>
+            <h1>{t("profile.title")}</h1>
 
             {error && <p>{error}</p>}
             {success && <p>{success}</p>}
 
             {user && !isEditing && (
                 <div>
-                    <p>Imię: {user.firstName}</p>
-                    <p>Nazwisko: {user.lastName}</p>
-                    <p>Email: {user.email}</p>
+                    <p>
+                        {t("profile.firstName")}: {user.firstName}
+                    </p>
+
+                    <p>
+                        {t("profile.lastName")}: {user.lastName}
+                    </p>
+
+                    <p>
+                        {t("profile.email")}: {user.email}
+                    </p>
 
                     <button type="button" onClick={handleEdit}>
-                        Edytuj
+                        {t("profile.edit")}
                     </button>
                 </div>
             )}
@@ -117,7 +128,7 @@ function ProfilePage() {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="firstName">
-                            Imię
+                            {t("profile.firstName")}
                         </label>
 
                         <input
@@ -133,7 +144,7 @@ function ProfilePage() {
 
                     <div>
                         <label htmlFor="lastName">
-                            Nazwisko
+                            {t("profile.lastName")}
                         </label>
 
                         <input
@@ -149,7 +160,7 @@ function ProfilePage() {
 
                     <div>
                         <label htmlFor="email">
-                            Email
+                            {t("profile.email")}
                         </label>
 
                         <input
@@ -164,7 +175,9 @@ function ProfilePage() {
                     </div>
 
                     <button type="submit" disabled={isSaving}>
-                        {isSaving ? "Zapisywanie..." : "Zapisz"}
+                        {isSaving
+                            ? t("profile.saving")
+                            : t("common.save")}
                     </button>
 
                     <button
@@ -172,7 +185,7 @@ function ProfilePage() {
                         onClick={handleCancel}
                         disabled={isSaving}
                     >
-                        Anuluj
+                        {t("common.cancel")}
                     </button>
                 </form>
             )}

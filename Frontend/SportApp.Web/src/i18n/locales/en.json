@@ -5,5 +5,58 @@
         "register": "Register",
         "save": "Save",
         "cancel": "Cancel"
+    },
+
+    "login": {
+        "title": "Log in",
+        "email": "Email",
+        "password": "Password",
+        "error": "Failed to log in. Check your email and password.",
+        "loggingIn": "Logging in...",
+        "register": "Register"
+    },
+
+    "dashboard": {
+        "title": "Dashboard",
+        "email": "Email",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "loadError": "Failed to load user data."
+    },
+
+    "profile": {
+        "title": "Profile",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "id": "ID",
+        "createdDate": "Created date",
+        "edit": "Edit",
+        "loading": "Loading user data...",
+        "saveSuccess": "User data has been saved.",
+        "loadError": "Failed to load user data.",
+        "saveError": "Failed to save user data.",
+        "saving": "Saving..."
+    },
+
+    "training": {
+        "title": "Training",
+        "loading": "Loading trainings...",
+        "loadError": "Failed to load trainings.",
+        "empty": "You don't have any trainings yet.",
+        "date": "Date",
+        "duration": "Duration",
+        "minutes": "min",
+        "distance": "Distance",
+        "kilometers": "km",
+        "calories": "Calories",
+        "description": "Description",
+        "types": {
+            "Running": "Running",
+            "Cycling": "Cycling",
+            "Walking": "Walking",
+            "Gym": "Gym",
+            "Swimming": "Swimming"
     }
+}
 }

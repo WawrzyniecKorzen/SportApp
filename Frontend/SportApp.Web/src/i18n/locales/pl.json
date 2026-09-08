@@ -5,5 +5,58 @@
         "register": "Zarejestruj się",
         "save": "Zapisz",
         "cancel": "Anuluj"
+    },
+
+    "login": {
+        "title": "Logowanie",
+        "email": "Email",
+        "password": "Hasło",
+        "error": "Nie udało się zalogować. Sprawdź email i hasło.",
+        "loggingIn": "Logowanie...",
+        "register": "Rejestracja"
+    },
+
+    "dashboard": {
+        "title": "Dashboard",
+        "email": "Email",
+        "firstName": "Imię",
+        "lastName": "Nazwisko",
+        "loadError": "Nie udało się pobrać danych użytkownika."
+    },
+
+    "profile": {
+        "title": "Profil",
+        "firstName": "Imię",
+        "lastName": "Nazwisko",
+        "email": "Email",
+        "id": "ID",
+        "createdDate": "Data utworzenia",
+        "edit": "Edytuj",
+        "loading": "Ładowanie danych użytkownika...",
+        "saveSuccess": "Dane użytkownika zostały zapisane.",
+        "loadError": "Nie udało się pobrać danych użytkownika.",
+        "saveError": "Nie udało się zapisać danych użytkownika.",
+        "saving": "Zapisywanie..."
+    },
+
+    "training": {
+        "title": "Treningi",
+        "loading": "Ładowanie treningów...",
+        "loadError": "Nie udało się pobrać treningów.",
+        "empty": "Nie masz jeszcze żadnych treningów.",
+        "date": "Data",
+        "duration": "Czas trwania",
+        "minutes": "min",
+        "distance": "Dystans",
+        "kilometers": "km",
+        "calories": "Kalorie",
+        "description": "Opis",
+        "types": {
+            "Running": "Bieganie",
+            "Cycling": "Jazda na rowerze",
+            "Walking": "Chodzenie",
+            "Gym": "Siłownia",
+            "Swimming": "Pływanie"
     }
+}
 }

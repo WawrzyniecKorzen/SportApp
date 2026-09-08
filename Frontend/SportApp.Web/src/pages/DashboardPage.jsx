@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { getCurrentUser } from "../api/userApi";
 
 function DashboardPage() {
+    const { t } = useTranslation();
+
     const [currentUser, setCurrentUser] = useState(null);
     const [error, setError] = useState("");
 
@@ -17,24 +20,32 @@ function DashboardPage() {
             } catch (error) {
                 console.error("Get current user error:", error);
 
-                setError("Nie udało się pobrać danych użytkownika.");
+                setError(t("dashboard.loadError"));
             }
         };
 
         loadUser();
-    }, []);
+    }, [t]);
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <h1>{t("dashboard.title")}</h1>
 
             {error && <p>{error}</p>}
 
             {currentUser && (
                 <div>
-                    <p>Email: {currentUser.email}</p>
-                    <p>Imię: {currentUser.firstName}</p>
-                    <p>Nazwisko: {currentUser.lastName}</p>
+                    <p>
+                        {t("dashboard.email")}: {currentUser.email}
+                    </p>
+
+                    <p>
+                        {t("dashboard.firstName")}: {currentUser.firstName}
+                    </p>
+
+                    <p>
+                        {t("dashboard.lastName")}: {currentUser.lastName}
+                    </p>
                 </div>
             )}
         </div>
