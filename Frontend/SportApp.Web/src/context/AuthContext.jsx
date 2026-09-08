@@ -28,6 +28,12 @@ function AuthProvider({ children }) {
         localStorage.setItem("token", authResponse.token);
     };
 
+    const updateUser = (updatedUser) => {
+    setUser(updatedUser);
+
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    };
+
     const logout = () => {
         setUser(null);
         setToken(null);
@@ -42,6 +48,7 @@ function AuthProvider({ children }) {
                 user,
                 token,
                 login,
+                updateUser,
                 logout
             }}
         >
