@@ -7,6 +7,8 @@ import StatisticsPage from "../pages/StatisticsPage";
 import GoodbyePage from "../pages/GoodbyePage";
 import ProtectedRoute from "./ProtectedRoutes";
 import MainLayout from "../layouts/MainLayout";
+import TrainingPage from "../pages/TrainingPage";
+import ProfilePage from "../pages/ProfilePage";
 
 function AppRoutes() {
     return (
@@ -18,6 +20,8 @@ function AppRoutes() {
                     <Route element={<MainLayout />}>
                         <Route path="/dashboard" element={<DashboardPage />} />
                         <Route path="/statistics" element={<StatisticsPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/training" element={<TrainingPage />} />
                     </Route>
                 </Route>
 
