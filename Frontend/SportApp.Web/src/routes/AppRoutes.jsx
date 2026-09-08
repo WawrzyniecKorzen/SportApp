@@ -6,6 +6,7 @@ import DashboardPage from "../pages/DashboardPage";
 import StatisticsPage from "../pages/StatisticsPage";
 import GoodbyePage from "../pages/GoodbyePage";
 import ProtectedRoute from "./ProtectedRoutes";
+import MainLayout from "../layouts/MainLayout";
 
 function AppRoutes() {
     return (
@@ -14,8 +15,10 @@ function AppRoutes() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route element={<ProtectedRoute />}>
-                    <Route path="/dashboard" element={<DashboardPage />} />
-                    <Route path="/statistics" element={<StatisticsPage />} />
+                    <Route element={<MainLayout />}>
+                        <Route path="/dashboard" element={<DashboardPage />} />
+                        <Route path="/statistics" element={<StatisticsPage />} />
+                    </Route>
                 </Route>
 
                 <Route path="/goodbye" element={<GoodbyePage />} />
