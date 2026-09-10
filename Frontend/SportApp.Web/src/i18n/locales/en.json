@@ -16,6 +16,13 @@
         "register": "Register"
     },
 
+    "navigation": {
+        "dashboard": "Dashboard",
+        "training": "Training",
+        "statistics": "Statistics",
+        "profile": "Profile"
+    },
+
     "dashboard": {
         "title": "Dashboard",
         "email": "Email",

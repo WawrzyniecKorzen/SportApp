@@ -2,6 +2,8 @@ import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/useAuth";
 
+import { useTranslation } from "react-i18next";
+
 function MainLayout() {
     const { logout } = useAuth();
 
@@ -11,22 +13,24 @@ function MainLayout() {
         navigate("/goodbye");
     };
 
+    const { t } = useTranslation();
+
     return (
         <div>
             <header>
                 <h1>SportApp</h1>
 
                 <nav>
-                    <NavLink to="/dashboard">Dashboard</NavLink>
+                    <NavLink to="/dashboard">{t("navigation.dashboard")}</NavLink>
                     {" | "}
-                    <NavLink to="/training">Treningi</NavLink>
+                    <NavLink to="/training">{t("navigation.training")}</NavLink>
                     {" | "}
-                    <NavLink to="/statistics">Statystyki</NavLink>
+                    <NavLink to="/statistics">{t("navigation.statistics")}</NavLink>
                     {" | "}
-                    <NavLink to="/profile">Profil</NavLink>
+                    <NavLink to="/profile">{t("navigation.profile")}</NavLink>
                     {" | "}
                     <button type="button" onClick={handleLogout}>
-                        Wyloguj
+                    {t("common.logout")}
                     </button>
                 </nav>
             </header>

@@ -16,8 +16,15 @@
         "register": "Rejestracja"
     },
 
+    "navigation": {
+        "dashboard": "Strona Główna",
+        "training": "Treningi",
+        "statistics": "Statystyki",
+        "profile": "Profil"
+    },
+
     "dashboard": {
-        "title": "Dashboard",
+        "title": "Strona Główna",
         "email": "Email",
         "firstName": "Imię",
         "lastName": "Nazwisko",
