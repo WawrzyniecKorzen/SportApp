@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getTrainings } from "../api/trainingApi";
+import { getTrainings, createTraining } from "../api/trainingApi";
+
 
 function TrainingPage() {
     const { t } = useTranslation();
@@ -9,6 +10,18 @@ function TrainingPage() {
     const [trainings, setTrainings] = useState([]);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+
+    const [isCreating, setIsCreating] = useState(false);
+
+    const [type, setType] = useState("Running");
+    const [date, setDate] = useState("");
+    const [duration, setDuration] = useState("");
+    const [distance, setDistance] = useState("");
+    const [calories, setCalories] = useState("");
+    const [description, setDescription] = useState("");
+
+    const [isSaving, setIsSaving] = useState(false);
+    const [createError, setCreateError] = useState("");
 
     useEffect(() => {
         const loadTrainings = async () => {
@@ -32,9 +45,67 @@ function TrainingPage() {
         return <p>{t("training.loading")}</p>;
     }
 
+    const handleCreateTraining = async (event) => 
+    {
+        event.preventDefault();
+
+        setCreateError("");
+        setIsSaving(true);
+
+        try 
+        {
+            const newTraining = await createTraining({
+                type,
+                date,
+                duration: Number(duration),
+                distance: Number(distance),
+                calories: Number(calories),
+                description
+            });
+
+            setTrainings((currentTrainings) => [
+                newTraining,
+             ...currentTrainings
+            ]);
+
+            setType("Running");
+            setDate("");
+            setDuration("");
+            setDistance("");
+            setCalories("");
+            setDescription("");
+
+            setIsCreating(false);
+        } 
+        catch (error) 
+        {
+            console.error("Create training error:", error);
+            setCreateError(t("training.createError"));
+        } 
+        finally 
+        {
+            setIsSaving(false);
+        }
+    };
+
     return (
         <div>
             <h1>{t("training.title")}</h1>
+            <button
+                type="button"
+                onClick={() => {
+                    setCreateError("");
+                    setIsCreating(true);
+                }}
+>
+                {t("training.add")}
+            </button>
+
+            {isCreating && (
+                <form onSubmit={handleCreateTraining}>
+                    {/* formularz dodamy tutaj */}
+                </form>
+            )}
 
             {error && <p>{error}</p>}
 

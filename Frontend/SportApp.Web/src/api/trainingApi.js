@@ -5,3 +5,12 @@ export async function getTrainings() {
 
     return response.data;
 }
+
+export async function createTraining(trainingData) {
+    const response = await apiClient.post(
+        "/api/Training",
+        trainingData
+    );
+
+    return response.data;
+}
