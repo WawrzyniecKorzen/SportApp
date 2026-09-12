@@ -101,7 +101,7 @@ function TrainingPage() {
                 {t("training.add")}
             </button>
 
-            ```jsx
+            
 {isCreating && (
     <form onSubmit={handleCreateTraining}>
         <div>
@@ -231,7 +231,6 @@ function TrainingPage() {
         </button>
     </form>
 )}
-```
 
 
             {error && <p>{error}</p>}
