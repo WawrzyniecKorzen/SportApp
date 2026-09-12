@@ -64,6 +64,10 @@
             "Walking": "Walking",
             "Gym": "Gym",
             "Swimming": "Swimming"
+        },
+        "type": "Training Type",
+        "saving": "Saving...",
+        "add": "Add Training",
+        "createError": "Adding training failed."
     }
-}
 }

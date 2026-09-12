@@ -64,6 +64,10 @@
             "Walking": "Chodzenie",
             "Gym": "Siłownia",
             "Swimming": "Pływanie"
+        },
+        "type": "Typ treningu",
+        "saving": "Zapisywanie...",
+        "add": "Dodaj trening",
+        "createError": "Nie udało się dodać treningu."  
     }
-}
 }

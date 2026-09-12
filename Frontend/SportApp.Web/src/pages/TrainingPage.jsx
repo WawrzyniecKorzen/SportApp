@@ -101,11 +101,138 @@ function TrainingPage() {
                 {t("training.add")}
             </button>
 
-            {isCreating && (
-                <form onSubmit={handleCreateTraining}>
-                    {/* formularz dodamy tutaj */}
-                </form>
-            )}
+            ```jsx
+{isCreating && (
+    <form onSubmit={handleCreateTraining}>
+        <div>
+            <label htmlFor="trainingType">
+                {t("training.type")}
+            </label>
+
+            <select
+                id="trainingType"
+                value={type}
+                onChange={(event) => setType(event.target.value)}
+            >
+                <option value="Running">
+                    {t("training.types.Running")}
+                </option>
+
+                <option value="Cycling">
+                    {t("training.types.Cycling")}
+                </option>
+
+                <option value="Walking">
+                    {t("training.types.Walking")}
+                </option>
+
+                <option value="Gym">
+                    {t("training.types.Gym")}
+                </option>
+
+                <option value="Swimming">
+                    {t("training.types.Swimming")}
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label htmlFor="trainingDate">
+                {t("training.date")}
+            </label>
+
+            <input
+                id="trainingDate"
+                type="datetime-local"
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+                required
+            />
+        </div>
+
+        <div>
+            <label htmlFor="trainingDuration">
+                {t("training.duration")}
+            </label>
+
+            <input
+                id="trainingDuration"
+                type="number"
+                min="1"
+                max="1440"
+                value={duration}
+                onChange={(event) => setDuration(event.target.value)}
+                required
+            />
+        </div>
+
+        <div>
+            <label htmlFor="trainingDistance">
+                {t("training.distance")}
+            </label>
+
+            <input
+                id="trainingDistance"
+                type="number"
+                min="0"
+                max="1000"
+                step="0.01"
+                value={distance}
+                onChange={(event) => setDistance(event.target.value)}
+                required
+            />
+        </div>
+
+        <div>
+            <label htmlFor="trainingCalories">
+                {t("training.calories")}
+            </label>
+
+            <input
+                id="trainingCalories"
+                type="number"
+                min="0"
+                max="100000"
+                value={calories}
+                onChange={(event) => setCalories(event.target.value)}
+                required
+            />
+        </div>
+
+        <div>
+            <label htmlFor="trainingDescription">
+                {t("training.description")}
+            </label>
+
+            <textarea
+                id="trainingDescription"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+            />
+        </div>
+
+        {createError && <p>{createError}</p>}
+
+        <button type="submit" disabled={isSaving}>
+            {isSaving
+                ? t("training.saving")
+                : t("common.save")}
+        </button>
+
+        <button
+            type="button"
+            onClick={() => {
+                setCreateError("");
+                setIsCreating(false);
+            }}
+            disabled={isSaving}
+        >
+            {t("common.cancel")}
+        </button>
+    </form>
+)}
+```
+
 
             {error && <p>{error}</p>}
 
