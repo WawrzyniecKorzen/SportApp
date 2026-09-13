@@ -281,14 +281,10 @@ function TrainingPage()
                 }
             }
             onUpdated={handleTrainingUpdated}
-            onCreated={(newTraining) => 
+            onCreated={() => 
                 {
-                    setTrainings((currentTrainings) => [
-                        newTraining,
-                        ...currentTrainings
-                    ]);
-
                     setIsCreating(false);
+                    loadTrainings(currentPage);
                 }}
         />
     )}
