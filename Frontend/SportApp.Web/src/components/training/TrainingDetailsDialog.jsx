@@ -71,6 +71,11 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
             setSaveError(t("validation.dateRequired"));
             return;
         }
+        if (!duration || Number(duration) <= 0)
+        {
+            setSaveError(t("validation.durationRequired"));
+            return;
+        }
 
         setIsSaving(true);
 
