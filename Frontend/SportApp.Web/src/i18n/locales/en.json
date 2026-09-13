@@ -72,6 +72,10 @@
         "fromDate": "From",
         "toDate": "To",
         "search": "Search",
-        "allTypes": "All"
+        "allTypes": "All",
+        "resetFilters": "Reset filters",
+        "previousPage": "Previous",
+        "nextPage": "Next",
+        "page": "Page"
     }
 }

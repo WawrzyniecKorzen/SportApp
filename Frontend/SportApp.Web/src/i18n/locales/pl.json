@@ -72,6 +72,10 @@
         "fromDate": "Od",
         "toDate": "Do",
         "search": "Szukaj",
-        "allTypes": "Wszystkie"
+        "allTypes": "Wszystkie",
+        "resetFilters": "Resetuj filtry",
+        "previousPage": "Poprzednia",
+    "nextPage": "Następna",
+    "page": "Strona"
     }
 }

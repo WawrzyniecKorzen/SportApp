@@ -52,7 +52,7 @@ function TrainingPage()
     const [filterType, setFilterType] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize] = useState(20);
+    const [pageSize] = useState(5);
 
     const [totalPages, setTotalPages] = useState(0);
     const [totalItems, setTotalItems] = useState(0);
@@ -69,16 +69,22 @@ function TrainingPage()
     const [isSaving, setIsSaving] = useState(false);
     const [createError, setCreateError] = useState("");
 
-    const loadTrainings = async (page = 1) => 
+    const loadTrainings = async (
+        page = 1,
+        filters = {
+            fromDate,
+            toDate,
+            filterType
+        }) => 
     {
         setIsLoading(true);
         setError("");
 
         try {
             const data = await getTrainings({
-                from: getStartOfDayUtc(fromDate),
-                to: getEndOfDayUtc(toDate),
-                type: filterType || undefined,
+                from: getStartOfDayUtc(filters.fromDate),
+                to: getEndOfDayUtc(filters.toDate),
+                type: filters.filterType || undefined,
                 page,
                 pageSize
             });
@@ -99,6 +105,20 @@ function TrainingPage()
     {
         loadTrainings(1);
     }, []);
+
+    const handleResetFilters = () => 
+    {
+        setFromDate("");
+        setToDate("");
+        setFilterType("");
+
+        loadTrainings(1, 
+        {
+            fromDate: "",
+            toDate: "",
+            filterType: ""
+        });
+    };
 
     if (isLoading) 
     {
@@ -234,6 +254,9 @@ function TrainingPage()
 
                 <button type="button" onClick={() => loadTrainings(1)}>
                     {t("training.search")}
+                </button>
+                <button type="button" onClick={handleResetFilters}>
+                    {t("training.resetFilters")}
                 </button>
             </div>
 
@@ -414,7 +437,33 @@ function TrainingPage()
                     ))}
                 </div>
             )}
-        </div>
+        
+        {trainings.length > 0 && totalPages > 1 && (
+    <div>
+        <button
+            type="button"
+            onClick={() => loadTrainings(currentPage - 1)}
+            disabled={currentPage === 1}
+        >
+            {t("training.previousPage")}
+        </button>
+
+        <span>
+            {" "}
+            {t("training.page")} {currentPage} / {totalPages}
+            {" "}
+        </span>
+
+        <button
+            type="button"
+            onClick={() => loadTrainings(currentPage + 1)}
+            disabled={currentPage === totalPages}
+        >
+            {t("training.nextPage")}
+        </button>
+    </div>
+)}
+</div>
     );
 }
 
