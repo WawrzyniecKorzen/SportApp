@@ -272,7 +272,7 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
 
                     <button
                         type="button"
-                        onClick={() => setIsEditing(false)}
+                        onClick={handleClose}
                     >
                         {t("common.cancel")}
                     </button>
