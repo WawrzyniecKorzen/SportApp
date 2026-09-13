@@ -18,6 +18,7 @@ function formatDateTimeLocal(date)
     return adjustedDate.toISOString().slice(0, 16);
 }
 
+
 function TrainingDetailsDialog({ training, onClose })
 {
     const { t } = useTranslation();
@@ -34,6 +35,23 @@ function TrainingDetailsDialog({ training, onClose })
     {
         return null;
     }
+    const startEditing = () =>
+    {
+        setType(training.type);
+        setDate(formatDateTimeLocal(training.date));
+        setDuration(training.duration);
+        setDistance(training.distance);
+        setCalories(training.calories);
+        setDescription(training.description ?? "");
+
+        setIsEditing(true);
+    };
+
+    const handleClose = () =>
+    {
+        setIsEditing(false);
+        onClose();
+    };
 
     return (
         <dialog open>
@@ -76,7 +94,7 @@ function TrainingDetailsDialog({ training, onClose })
 
                     <button
                         type="button"
-                        onClick={() => setIsEditing(true)}
+                        onClick={startEditing}
                     >
                         {t("common.edit")}
                     </button>
@@ -191,7 +209,7 @@ function TrainingDetailsDialog({ training, onClose })
 
             <button
                 type="button"
-                onClick={onClose}
+                onClick={handleClose}
             >
                 {t("common.close")}
             </button>
