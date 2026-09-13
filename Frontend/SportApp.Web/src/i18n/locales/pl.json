@@ -4,7 +4,8 @@
         "logout": "Wyloguj",
         "register": "Zarejestruj się",
         "save": "Zapisz",
-        "cancel": "Anuluj"
+        "cancel": "Anuluj",
+        "close": "Zamknij"
     },
 
     "login": {
@@ -75,7 +76,7 @@
         "allTypes": "Wszystkie",
         "resetFilters": "Resetuj filtry",
         "previousPage": "Poprzednia",
-    "nextPage": "Następna",
-    "page": "Strona"
+        "nextPage": "Następna",
+        "page": "Strona"
     }
 }

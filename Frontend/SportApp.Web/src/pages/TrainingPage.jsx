@@ -69,6 +69,8 @@ function TrainingPage()
     const [isSaving, setIsSaving] = useState(false);
     const [createError, setCreateError] = useState("");
 
+    const [selectedTraining, setSelectedTraining] = useState(null);
+
     const loadTrainings = async (
         page = 1,
         filters = {
@@ -406,40 +408,22 @@ function TrainingPage()
             {trainings.length > 0 && (
                 <div>
                     {trainings.map((training) => (
-                        <div key={training.id}>
-                            <h2>
-                                {t(`training.types.${training.type}`)}
-                            </h2>
+                    <div
+                        key={training.id}
+                        onClick={() => setSelectedTraining(training)}
+                        role="button"
+                        tabIndex={0}
+                    >
+                        <h2>
+                            {t(`training.types.${training.type}`)}
+                        </h2>
 
-                            <p>
-                                {t("training.date")}: {formatTrainingDate(training.date)}
-                            </p>
-
-                            <p>
-                                {t("training.duration")}:{" "}
-                                {training.duration}{" "}
-                                {t("training.minutes")}
-                            </p>
-
-                            <p>
-                                {t("training.distance")}:{" "}
-                                {training.distance}{" "}
-                                {t("training.kilometers")}
-                            </p>
-
-                            <p>
-                                {t("training.calories")}:{" "}
-                                {training.calories}
-                            </p>
-
-                            {training.description && (
-                                <p>
-                                    {t("training.description")}:{" "}
-                                    {training.description}
-                                </p>
-                            )}
-                        </div>
-                    ))}
+                        <p>
+                            {t("training.date")}:{" "}
+                            {formatTrainingDate(training.date)}
+                        </p>
+                    </div>
+                ))}
                 </div>
             )}
         
@@ -467,7 +451,50 @@ function TrainingPage()
             {t("training.nextPage")}
         </button>
     </div>
-)}
+    )}
+    {selectedTraining && (
+        <dialog open>
+            <h2>
+                {t(`training.types.${selectedTraining.type}`)}
+            </h2>
+
+            <p>
+                {t("training.date")}:{" "}
+                {formatTrainingDate(selectedTraining.date)}
+            </p>
+
+            <p>
+                {t("training.duration")}:{" "}
+                {selectedTraining.duration}{" "}
+                {t("training.minutes")}
+            </p>
+
+            <p>
+                {t("training.distance")}:{" "}
+                {selectedTraining.distance}{" "}
+                {t("training.kilometers")}
+            </p>
+
+            <p>
+                {t("training.calories")}:{" "}
+                {selectedTraining.calories}
+            </p>
+
+            {selectedTraining.description && (
+                <p>
+                    {t("training.description")}:{" "}
+                    {selectedTraining.description}
+                </p>
+            )}
+
+            <button
+                type="button"
+                onClick={() => setSelectedTraining(null)}
+            >
+                {t("common.close")}
+            </button>
+        </dialog>
+    )}
 </div>
     );
 }

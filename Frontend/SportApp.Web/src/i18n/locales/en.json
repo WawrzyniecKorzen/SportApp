@@ -4,7 +4,8 @@
         "logout": "Log out",
         "register": "Register",
         "save": "Save",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "close": "Close"
     },
 
     "login": {
