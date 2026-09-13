@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
-import { updateTraining, getTrainingById } from "../../api/trainingApi";
+import { updateTraining, getTrainingById, createTraining } from "../../api/trainingApi";
 import { getUtcDate } from "../../helpers/dateUtils";
 
 function formatTrainingDate(date)
@@ -23,7 +23,7 @@ function formatDateTimeLocal(date)
 
 
 
-function TrainingDetailsDialog({ training, onClose, onUpdated })
+function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCreated })
 {
     const { t } = useTranslation();
     const [isEditing, setIsEditing] = useState(false);
@@ -38,12 +38,13 @@ function TrainingDetailsDialog({ training, onClose, onUpdated })
     const [isSaving, setIsSaving] = useState(false);
     const [saveError, setSaveError] = useState("");
 
-    if (!training)
-    {
-        return null;
-    }
     const startEditing = () =>
     {
+        if (!training)
+        {
+            return;
+        }
+        
         setType(training.type);
         setDate(formatDateTimeLocal(training.date));
         setDuration(training.duration);
@@ -69,19 +70,36 @@ function TrainingDetailsDialog({ training, onClose, onUpdated })
 
         try
         {
-            await updateTraining(
-                training.id,
-                {
+            if (isCreating)
+            {
+                const newTraining = await createTraining({
                     type,
                     date: getUtcDate(date),
                     duration: Number(duration),
                     distance: Number(distance),
                     calories: Number(calories),
                     description
-                }
-            );
-            const updatedTraining = await getTrainingById(training.id);
-            onUpdated(updatedTraining);
+                });
+
+                onCreated(newTraining);
+            }
+            else
+            {
+                await updateTraining(
+                    training.id,
+                    {
+                        type,
+                        date: getUtcDate(date),
+                        duration: Number(duration),
+                        distance: Number(distance),
+                        calories: Number(calories),
+                        description
+                    }
+                );
+                const updatedTraining = await getTrainingById(training.id);
+
+                onUpdated(updatedTraining);
+            }
             setIsEditing(false);
         }
         catch (error)
@@ -99,7 +117,7 @@ function TrainingDetailsDialog({ training, onClose, onUpdated })
         <dialog open>
             
 
-            {!isEditing ? (
+            {!isEditing && !isCreating ? (
                 <>
                     <h2>
                         {t(`training.types.${training.type}`)}
@@ -142,6 +160,9 @@ function TrainingDetailsDialog({ training, onClose, onUpdated })
                     </button>
                 </>
             ) : (
+                <>
+                {isCreating && (<h2>{t("training.add")}</h2>)}
+
                 <form onSubmit={handleSave}>
                     <div>
                         <label>
@@ -250,6 +271,7 @@ function TrainingDetailsDialog({ training, onClose, onUpdated })
                         {t("common.cancel")}
                     </button>
                 </form>
+                </>
             )}
 
             <button
