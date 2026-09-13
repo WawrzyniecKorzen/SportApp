@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { getTrainings, createTraining } from "../api/trainingApi";
+import TrainingDetailsDialog from "../components/training/TrainingDetailsDialog";
 
 function getStartOfDayUtc(dateString) 
 {
@@ -452,49 +453,11 @@ function TrainingPage()
         </button>
     </div>
     )}
-    {selectedTraining && (
-        <dialog open>
-            <h2>
-                {t(`training.types.${selectedTraining.type}`)}
-            </h2>
 
-            <p>
-                {t("training.date")}:{" "}
-                {formatTrainingDate(selectedTraining.date)}
-            </p>
-
-            <p>
-                {t("training.duration")}:{" "}
-                {selectedTraining.duration}{" "}
-                {t("training.minutes")}
-            </p>
-
-            <p>
-                {t("training.distance")}:{" "}
-                {selectedTraining.distance}{" "}
-                {t("training.kilometers")}
-            </p>
-
-            <p>
-                {t("training.calories")}:{" "}
-                {selectedTraining.calories}
-            </p>
-
-            {selectedTraining.description && (
-                <p>
-                    {t("training.description")}:{" "}
-                    {selectedTraining.description}
-                </p>
-            )}
-
-            <button
-                type="button"
-                onClick={() => setSelectedTraining(null)}
-            >
-                {t("common.close")}
-            </button>
-        </dialog>
-    )}
+    <TrainingDetailsDialog
+        training={selectedTraining}
+        onClose={() => setSelectedTraining(null)}
+    />
 </div>
     );
 }
