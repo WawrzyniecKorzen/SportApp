@@ -84,6 +84,7 @@
 
     "validation": {
         "dateRequired": "Data jest wymagana.",
-        "durationRequired": "Czas trwania musi być większy od 0."
+        "durationRequired": "Czas trwania musi być większy od 0.",
+        "distanceRequired": "Dystans musi być większy od 0."
     }
 }

@@ -76,6 +76,16 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
             setSaveError(t("validation.durationRequired"));
             return;
         }
+        if (!duration || Number(duration) <= 0)
+        {
+            setSaveError(t("training.validation.durationRequired"));
+            return;
+        }
+        if (type !== "Gym" && (!distance || Number(distance) <= 0))
+        {
+            setSaveError(t("training.validation.distanceRequired"));
+            return;
+        }
 
         setIsSaving(true);
 

@@ -83,6 +83,7 @@
     },
     "validation": {
         "dateRequired": "Date is required.",
-        "durationRequired": "Duration must be greater than 0."
+        "durationRequired": "Duration must be greater than 0.",
+        "distanceRequired": "Distance must be greater than 0."
     }
 }
