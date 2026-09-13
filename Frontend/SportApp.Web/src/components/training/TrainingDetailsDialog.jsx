@@ -182,7 +182,18 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
 
                         <select
                             value={type}
-                            onChange={(event) => setType(event.target.value)}
+                            onChange={(event) =>
+                                {
+                                    const newType = event.target.value;
+
+                                    setType(newType);
+
+                                    if (newType === "Gym")
+                                    {
+                                        setDistance(0);
+                                    }
+                                }
+                            }
                         >
                             <option value="Running">
                                 {t("training.types.Running")}
@@ -240,6 +251,7 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
                             step="0.01"
                             value={distance}
                             onChange={(event) => setDistance(event.target.value)}
+                            disabled={type === "Gym"}
                         />
                     </div>
 
