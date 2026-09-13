@@ -5,7 +5,8 @@
         "register": "Register",
         "save": "Save",
         "cancel": "Cancel",
-        "close": "Close"
+        "close": "Close",
+        "edit": "Edytuj"
     },
 
     "login": {

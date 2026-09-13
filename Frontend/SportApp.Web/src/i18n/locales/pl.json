@@ -5,7 +5,8 @@
         "register": "Zarejestruj się",
         "save": "Zapisz",
         "cancel": "Anuluj",
-        "close": "Zamknij"
+        "close": "Zamknij",
+        "edit": "Edytuj"
     },
 
     "login": {
