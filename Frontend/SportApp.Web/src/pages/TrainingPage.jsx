@@ -89,6 +89,11 @@ function TrainingPage()
                 pageSize
             });
 
+            if (data.items.length === 0 && data.totalPages > 0 && page > data.totalPages) 
+            {
+                return loadTrainings(data.totalPages, filters);
+            }
+
             setTrainings(data.items);
             setTotalPages(data.totalPages);
             setTotalItems(data.totalItems);
