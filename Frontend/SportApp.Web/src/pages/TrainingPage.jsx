@@ -49,6 +49,7 @@ function TrainingPage()
 
     const [fromDate, setFromDate] = useState("");
     const [toDate, setToDate] = useState("");
+    const [filterType, setFilterType] = useState("");
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(20);
@@ -77,6 +78,7 @@ function TrainingPage()
             const data = await getTrainings({
                 from: getStartOfDayUtc(fromDate),
                 to: getEndOfDayUtc(toDate),
+                type: filterType || undefined,
                 page,
                 pageSize
             });
@@ -193,6 +195,41 @@ function TrainingPage()
                         value={toDate}
                         onChange={(event) => setToDate(event.target.value)}
                     />
+                </div>
+                <div>
+                    <label htmlFor="filterType">
+                        {t("training.type")}
+                    </label>
+
+                    <select
+                        id="filterType"
+                        value={filterType}
+                        onChange={(event) => setFilterType(event.target.value)}
+                    >
+                        <option value="">
+                            {t("training.allTypes")}
+                        </option>
+
+                        <option value="Running">
+                            {t("training.types.Running")}
+                        </option>
+
+                        <option value="Cycling">
+                            {t("training.types.Cycling")}
+                        </option>
+
+                        <option value="Walking">
+                            {t("training.types.Walking")}
+                        </option>
+
+                        <option value="Gym">
+                            {t("training.types.Gym")}
+                        </option>
+
+                        <option value="Swimming">
+                            {t("training.types.Swimming")}
+                        </option>
+                    </select>
                 </div>
 
                 <button type="button" onClick={() => loadTrainings(1)}>

@@ -71,6 +71,7 @@
         "createError": "Nie udało się dodać treningu.",
         "fromDate": "Od",
         "toDate": "Do",
-        "search": "Szukaj"
+        "search": "Szukaj",
+        "allTypes": "Wszystkie"
     }
 }

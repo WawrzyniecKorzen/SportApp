@@ -71,6 +71,7 @@
         "createError": "Adding training failed.",
         "fromDate": "From",
         "toDate": "To",
-        "search": "Search"
+        "search": "Search",
+        "allTypes": "All"
     }
 }
