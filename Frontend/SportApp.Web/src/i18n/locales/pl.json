@@ -71,6 +71,7 @@
         "saving": "Zapisywanie...",
         "add": "Dodaj trening",
         "createError": "Nie udało się dodać treningu.",
+        "updateError": "Nie udało się zaktualizować treningu.",
         "fromDate": "Od",
         "toDate": "Do",
         "search": "Szukaj",

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 
 import { getTrainings, createTraining } from "../api/trainingApi";
 import TrainingDetailsDialog from "../components/training/TrainingDetailsDialog";
+import { getUtcDate } from "../helpers/dateUtils";
 
 function getStartOfDayUtc(dateString) 
 {
@@ -28,16 +29,6 @@ function getEndOfDayUtc(dateString)
 function formatTrainingDate(date) 
 {
     return new Date(date).toLocaleString("pl-PL");
-}
-function getUtcDate(dateString) 
-{
-    if (!dateString) 
-    {
-        return undefined;
-    }
-
-    const date = new Date(dateString);
-    return date.toISOString();
 }
 
 function TrainingPage() 
@@ -174,6 +165,19 @@ function TrainingPage()
         {
             setIsSaving(false);
         }
+    };
+
+    const handleTrainingUpdated = (updatedTraining) =>
+    {
+        setTrainings((currentTrainings) =>
+            currentTrainings.map((training) =>
+                training.id === updatedTraining.id
+                    ? updatedTraining
+                    : training
+            )
+        );
+
+        setSelectedTraining(updatedTraining);
     };
 
     return (
@@ -457,6 +461,7 @@ function TrainingPage()
     <TrainingDetailsDialog
         training={selectedTraining}
         onClose={() => setSelectedTraining(null)}
+        onUpdated={handleTrainingUpdated}
     />
 </div>
     );

@@ -1,6 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 
+import { updateTraining, getTrainingById } from "../../api/trainingApi";
+import { getUtcDate } from "../../helpers/dateUtils";
+
 function formatTrainingDate(date)
 {
     return new Date(date).toLocaleString("pl-PL");
@@ -19,7 +22,8 @@ function formatDateTimeLocal(date)
 }
 
 
-function TrainingDetailsDialog({ training, onClose })
+
+function TrainingDetailsDialog({ training, onClose, onUpdated })
 {
     const { t } = useTranslation();
     const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +34,9 @@ function TrainingDetailsDialog({ training, onClose })
     const [distance, setDistance] = useState(training?.distance ?? "");
     const [calories, setCalories] = useState(training?.calories ?? "");
     const [description, setDescription] = useState(training?.description ?? "");
+
+    const [isSaving, setIsSaving] = useState(false);
+    const [saveError, setSaveError] = useState("");
 
     if (!training)
     {
@@ -51,6 +58,41 @@ function TrainingDetailsDialog({ training, onClose })
     {
         setIsEditing(false);
         onClose();
+    };
+
+    const handleSave = async (event) =>
+    {
+        event.preventDefault();
+
+        setSaveError("");
+        setIsSaving(true);
+
+        try
+        {
+            await updateTraining(
+                training.id,
+                {
+                    type,
+                    date: getUtcDate(date),
+                    duration: Number(duration),
+                    distance: Number(distance),
+                    calories: Number(calories),
+                    description
+                }
+            );
+            const updatedTraining = await getTrainingById(training.id);
+            onUpdated(updatedTraining);
+            setIsEditing(false);
+        }
+        catch (error)
+        {
+            console.error("Update training error:", error);
+            setSaveError(t("training.updateError"));
+        }
+        finally
+        {
+            setIsSaving(false);
+        }
     };
 
     return (
@@ -100,7 +142,7 @@ function TrainingDetailsDialog({ training, onClose })
                     </button>
                 </>
             ) : (
-                <form>
+                <form onSubmit={handleSave}>
                     <div>
                         <label>
                             {t("training.type")}
@@ -191,11 +233,14 @@ function TrainingDetailsDialog({ training, onClose })
                             onChange={(event) => setDescription(event.target.value)}
                         />
                     </div>
-
+                    {saveError && <p>{saveError}</p>}
                     <button
                         type="submit"
+                        disabled={isSaving}
                     >
-                        {t("common.save")}
+                        {isSaving
+                            ? t("training.saving")
+                            : t("common.save")}
                     </button>
 
                     <button

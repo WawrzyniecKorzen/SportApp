@@ -71,6 +71,7 @@
         "saving": "Saving...",
         "add": "Add Training",
         "createError": "Adding training failed.",
+        "updateError": "Failed to update the training.",
         "fromDate": "From",
         "toDate": "To",
         "search": "Search",
