@@ -1,7 +1,10 @@
 import apiClient from "./apiClient";
 
-export async function getTrainings(from, to, type,  page, pageSize, limit) {
-    const response = await apiClient.get("/api/Training", { params: { From: from, To: to, Type: type, Page: page, PageSize: pageSize, Limit: limit } });
+export async function getTrainings({from, to, type,  page, pageSize, limit} = {}) {
+    const response = await apiClient.get("/api/Training", 
+        { 
+            params: { From: from, To: to, Type: type, Page: page, PageSize: pageSize, Limit: limit }
+        });
 
     return response.data;
 }

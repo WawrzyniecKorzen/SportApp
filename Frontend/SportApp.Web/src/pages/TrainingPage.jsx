@@ -3,13 +3,58 @@ import { useTranslation } from "react-i18next";
 
 import { getTrainings, createTraining } from "../api/trainingApi";
 
+function getStartOfDayUtc(dateString) 
+{
+    if (!dateString) 
+    {
+        return undefined;
+    }
 
-function TrainingPage() {
+    const date = new Date(`${dateString}T00:00:00`);
+    return date.toISOString();
+}
+
+function getEndOfDayUtc(dateString) 
+{
+    if (!dateString) 
+    {
+        return undefined;
+    }
+
+    const date = new Date(`${dateString}T23:59:59.999`);
+    return date.toISOString();
+}
+function formatTrainingDate(date) 
+{
+    return new Date(date).toLocaleString("pl-PL");
+}
+function getUtcDate(dateString) 
+{
+    if (!dateString) 
+    {
+        return undefined;
+    }
+
+    const date = new Date(dateString);
+    return date.toISOString();
+}
+
+function TrainingPage() 
+{
     const { t } = useTranslation();
 
     const [trainings, setTrainings] = useState([]);
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+
+    const [fromDate, setFromDate] = useState("");
+    const [toDate, setToDate] = useState("");
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize] = useState(20);
+
+    const [totalPages, setTotalPages] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
 
     const [isCreating, setIsCreating] = useState(false);
 
@@ -23,25 +68,38 @@ function TrainingPage() {
     const [isSaving, setIsSaving] = useState(false);
     const [createError, setCreateError] = useState("");
 
-    useEffect(() => {
-        const loadTrainings = async () => {
-            try {
-                const data = await getTrainings();
+    const loadTrainings = async (page = 1) => 
+    {
+        setIsLoading(true);
+        setError("");
 
-                setTrainings(data.items);
-            } catch (error) {
-                console.error("Get trainings error:", error);
+        try {
+            const data = await getTrainings({
+                from: getStartOfDayUtc(fromDate),
+                to: getEndOfDayUtc(toDate),
+                page,
+                pageSize
+            });
 
-                setError(t("training.loadError"));
-            } finally {
-                setIsLoading(false);
-            }
-        };
+            setTrainings(data.items);
+            setTotalPages(data.totalPages);
+            setTotalItems(data.totalItems);
+            setCurrentPage(page);
+        } catch (error) {
+            console.error("Get trainings error:", error);
 
-        loadTrainings();
-    }, [t]);
+            setError(t("training.loadError"));
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    useEffect(() => 
+    {
+        loadTrainings(1);
+    }, []);
 
-    if (isLoading) {
+    if (isLoading) 
+    {
         return <p>{t("training.loading")}</p>;
     }
 
@@ -56,7 +114,7 @@ function TrainingPage() {
         {
             const newTraining = await createTraining({
                 type,
-                date,
+                date: getUtcDate(date),
                 duration: Number(duration),
                 distance: Number(distance),
                 calories: Number(calories),
@@ -100,6 +158,47 @@ function TrainingPage() {
 >
                 {t("training.add")}
             </button>
+            <div>
+                <div>
+                    <label htmlFor="fromDate">
+                        {t("training.fromDate")}
+                    </label>
+
+                    <input
+                        id="fromDate"
+                        type="date"
+                        value={fromDate}
+                        onChange={(event) => 
+                        {
+                            const newFromDate = event.target.value;
+                            setFromDate(newFromDate);
+                            if (toDate && newFromDate > toDate)
+                            {
+                                setToDate("");
+                            }
+                        }
+                    }
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="toDate">
+                        {t("training.toDate")}
+                    </label>
+
+                    <input
+                        id="toDate"
+                        type="date"
+                        min={fromDate}
+                        value={toDate}
+                        onChange={(event) => setToDate(event.target.value)}
+                    />
+                </div>
+
+                <button type="button" onClick={() => loadTrainings(1)}>
+                    {t("training.search")}
+                </button>
+            </div>
 
             
 {isCreating && (
@@ -248,7 +347,7 @@ function TrainingPage() {
                             </h2>
 
                             <p>
-                                {t("training.date")}: {training.date}
+                                {t("training.date")}: {formatTrainingDate(training.date)}
                             </p>
 
                             <p>

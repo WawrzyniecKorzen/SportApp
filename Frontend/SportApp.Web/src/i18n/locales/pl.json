@@ -68,6 +68,9 @@
         "type": "Typ treningu",
         "saving": "Zapisywanie...",
         "add": "Dodaj trening",
-        "createError": "Nie udało się dodać treningu."  
+        "createError": "Nie udało się dodać treningu.",
+        "fromDate": "Od",
+        "toDate": "Do",
+        "search": "Szukaj"
     }
 }
