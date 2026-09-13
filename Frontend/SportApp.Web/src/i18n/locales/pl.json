@@ -80,5 +80,9 @@
         "previousPage": "Poprzednia",
         "nextPage": "Następna",
         "page": "Strona"
+    },
+
+    "validation": {
+        "dateRequired": "Data jest wymagana."
     }
 }

@@ -80,5 +80,8 @@
         "previousPage": "Previous",
         "nextPage": "Next",
         "page": "Page"
+    },
+    "validation": {
+        "dateRequired": "Date is required."
     }
 }

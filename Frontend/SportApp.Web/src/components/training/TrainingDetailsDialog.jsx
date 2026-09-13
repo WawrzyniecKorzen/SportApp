@@ -44,7 +44,7 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
         {
             return;
         }
-        
+
         setType(training.type);
         setDate(formatDateTimeLocal(training.date));
         setDuration(training.duration);
@@ -66,6 +66,12 @@ function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCre
         event.preventDefault();
 
         setSaveError("");
+        if (!date)
+        {
+            setSaveError(t("validation.dateRequired"));
+            return;
+        }
+
         setIsSaving(true);
 
         try
