@@ -85,5 +85,15 @@
         "dateRequired": "Date is required.",
         "durationRequired": "Duration must be greater than 0.",
         "distanceRequired": "Distance must be greater than 0."
+    },
+
+    "statistics": {
+        "title": "Statistics",
+        "loading": "Loading statistics...",
+        "loadError": "Failed to load statistics.",
+        "totalTrainings": "Total trainings",
+        "totalDuration": "Total duration",
+        "totalDistance": "Total distance",
+        "totalCalories": "Total calories"
     }
 }

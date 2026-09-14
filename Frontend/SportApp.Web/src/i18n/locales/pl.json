@@ -86,5 +86,15 @@
         "dateRequired": "Data jest wymagana.",
         "durationRequired": "Czas trwania musi być większy od 0.",
         "distanceRequired": "Dystans musi być większy od 0."
+    },
+
+    "statistics": {
+        "title": "Statystyki",
+        "loading": "Ładowanie statystyk...",
+        "loadError": "Nie udało się pobrać statystyk.",
+        "totalTrainings": "Liczba treningów",
+        "totalDuration": "Łączny czas",
+        "totalDistance": "Łączny dystans",
+        "totalCalories": "Łączne kalorie"
     }
 }
