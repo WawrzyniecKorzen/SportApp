@@ -238,6 +238,50 @@ function StatisticsPage() {
                 {t("statistics.totalCalories")}:{" "}
                 {stats.totalCalories}
             </p>
+
+            <h2>{t("statistics.byType.title")}</h2>
+
+                {stats.byType.length === 0 ? (
+                    <p>{t("statistics.byType.empty")}</p>
+                ) : (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>{t("statistics.byType.type")}</th>
+                                <th>{t("statistics.byType.trainingsCount")}</th>
+                                <th>{t("statistics.byType.totalDuration")}</th>
+                                <th>{t("statistics.byType.totalDistance")}</th>
+                                <th>{t("statistics.byType.totalCalories")}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {stats.byType.map((item) => (
+                                <tr key={item.type}>
+                                    <td>{t(`training.types.${item.type}`)}</td>
+
+                                    <td>
+                                        {item.trainingsCount}
+                                    </td>
+
+                                    <td>
+                                        {item.totalDuration}{" "}
+                                        {t("training.minutes")}
+                                    </td>
+
+                                    <td>
+                                        {item.totalDistance}{" "}
+                                        {t("training.kilometers")}
+                                    </td>
+
+                                    <td>
+                                        {item.totalCalories}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
         </div>
     );
 }

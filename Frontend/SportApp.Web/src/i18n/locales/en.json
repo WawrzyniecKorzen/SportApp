@@ -121,6 +121,15 @@
             "10": "October",
             "11": "November",
             "12": "December"
+        },
+        "byType": {
+            "title": "Statistics by training type",
+            "empty": "No data for the selected filters.",
+            "type": "Type",
+            "trainingsCount": "Number of trainings",
+            "totalDuration": "Total duration",
+            "totalDistance": "Total distance",
+            "totalCalories": "Total calories"
         }
     }
 }

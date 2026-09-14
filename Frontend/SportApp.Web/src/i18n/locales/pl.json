@@ -122,6 +122,15 @@
             "10": "Październik",
             "11": "Listopad",
             "12": "Grudzień"
+        },
+        "byType": {
+            "title": "Statystyki według typu treningu",
+            "empty": "Brak danych dla wybranych filtrów.",
+            "type": "Typ",
+            "trainingsCount": "Liczba treningów",
+            "totalDuration": "Łączny czas",
+            "totalDistance": "Łączny dystans",
+            "totalCalories": "Łączne kalorie"
         }
     }
 }
