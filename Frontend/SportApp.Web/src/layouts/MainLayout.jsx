@@ -8,12 +8,22 @@ function MainLayout() {
     const { logout } = useAuth();
 
     const navigate = useNavigate();
-    const handleLogout = () => {
+    const handleLogout = () => 
+    {
         logout();
         navigate("/goodbye");
     };
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    const handleLanguageChange = () => 
+    {
+        const newLanguage = i18n.language === "pl"
+            ? "en"
+            : "pl";
+
+        i18n.changeLanguage(newLanguage);
+    };
 
     return (
         <div>
@@ -28,6 +38,13 @@ function MainLayout() {
                     <NavLink to="/statistics">{t("navigation.statistics")}</NavLink>
                     {" | "}
                     <NavLink to="/profile">{t("navigation.profile")}</NavLink>
+                    {" | "}
+                    <button
+                        type="button"
+                        onClick={handleLanguageChange}
+                    >
+                        {i18n.language === "pl" ? t("common.language.english") : t("common.language.polish")}
+                    </button>
                     {" | "}
                     <button type="button" onClick={handleLogout}>
                     {t("common.logout")}

@@ -6,7 +6,11 @@
         "save": "Save",
         "cancel": "Cancel",
         "close": "Close",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "language": {
+            "english": "English",
+            "polish": "Polish"
+        }
     },
 
     "login": {
@@ -131,5 +135,6 @@
             "totalDistance": "Total distance",
             "totalCalories": "Total calories"
         }
+        
     }
 }

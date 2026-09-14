@@ -6,7 +6,11 @@
         "save": "Zapisz",
         "cancel": "Anuluj",
         "close": "Zamknij",
-        "edit": "Edytuj"
+        "edit": "Edytuj",
+        "language": {
+            "english": "English",
+            "polish": "Polski"
+        }
     },
 
     "login": {
