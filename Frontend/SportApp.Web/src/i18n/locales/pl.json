@@ -95,6 +95,33 @@
         "totalTrainings": "Liczba treningów",
         "totalDuration": "Łączny czas",
         "totalDistance": "Łączny dystans",
-        "totalCalories": "Łączne kalorie"
+        "totalCalories": "Łączne kalorie",
+
+        "filters": {
+            "title": "Filtry",
+            "year": "Rok",
+            "month": "Miesiąc",
+            "type": "Typ treningu",
+            "allYears": "Wszystkie lata",
+            "allMonths": "Wszystkie miesiące",
+            "allTypes": "Wszystkie typy",
+            "apply": "Filtruj",
+            "reset": "Wyczyść filtry"
+        },
+
+        "months": {
+            "1": "Styczeń",
+            "2": "Luty",
+            "3": "Marzec",
+            "4": "Kwiecień",
+            "5": "Maj",
+            "6": "Czerwiec",
+            "7": "Lipiec",
+            "8": "Sierpień",
+            "9": "Wrzesień",
+            "10": "Październik",
+            "11": "Listopad",
+            "12": "Grudzień"
+        }
     }
 }

@@ -94,6 +94,33 @@
         "totalTrainings": "Total trainings",
         "totalDuration": "Total duration",
         "totalDistance": "Total distance",
-        "totalCalories": "Total calories"
+        "totalCalories": "Total calories",
+
+        "filters": {
+            "title": "Filters",
+            "year": "Year",
+            "month": "Month",
+            "type": "Training type",
+            "allYears": "All years",
+            "allMonths": "All months",
+            "allTypes": "All types",
+            "apply": "Filter",
+            "reset": "Clear filters"
+        },
+
+        "months": {
+            "1": "January",
+            "2": "February",
+            "3": "March",
+            "4": "April",
+            "5": "May",
+            "6": "June",
+            "7": "July",
+            "8": "August",
+            "9": "September",
+            "10": "October",
+            "11": "November",
+            "12": "December"
+        }
     }
 }
