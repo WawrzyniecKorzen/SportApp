@@ -14,6 +14,10 @@ function StatisticsPage() {
     const [selectedMonth, setSelectedMonth] = useState("");
     const [selectedType, setSelectedType] = useState("");
 
+    const [appliedYear, setAppliedYear] = useState("");
+    const [appliedMonth, setAppliedMonth] = useState("");
+    const [appliedType, setAppliedType] = useState("");
+
     const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
     const currentYear = new Date().getFullYear();
@@ -25,15 +29,75 @@ function StatisticsPage() {
         years.push(year);
     }
 
-    useEffect(() => {
+    const handleApplyFilters = () => 
+    {
+        setAppliedYear(selectedYear);
+        setAppliedMonth(selectedMonth);
+        setAppliedType(selectedType);
+    };
+
+    function getDateRange(year, month)
+    {
+        if (!year)
+        {
+            return {
+                from: undefined,
+                to: undefined
+            };
+        }
+
+        const numericYear = Number(year);
+
+        if (!month)
+        {
+            return {
+                from: new Date(numericYear, 0, 1, 0, 0, 0, 0).toISOString(),
+
+                to: new Date(numericYear, 11, 31, 23, 59, 59, 999).toISOString()
+            };
+        }
+
+        const numericMonth = Number(month);
+
+        return {
+            from: new Date(
+                numericYear,
+                numericMonth - 1, 1, 0, 0, 0, 0
+            ).toISOString(),
+
+            to: new Date(
+                numericYear,
+                numericMonth,
+                0,
+                23,
+                59,
+                59,
+                999
+            ).toISOString()
+        };
+    }
+
+    useEffect(() => 
+    {
         const loadStats = async () => {
+            setIsLoading(true);
+            setError("");
+
             try {
-                const data = await getTrainingStats();
+                const { from, to } = getDateRange(
+                    appliedYear,
+                    appliedMonth
+                );
+
+                const data = await getTrainingStats({
+                    from,
+                    to,
+                    type: appliedType || undefined
+                });
 
                 setStats(data);
             } catch (error) {
                 console.error("Get training stats error:", error);
-
                 setError(t("statistics.loadError"));
             } finally {
                 setIsLoading(false);
@@ -41,7 +105,7 @@ function StatisticsPage() {
         };
 
         loadStats();
-    }, [t]);
+    }, [appliedYear, appliedMonth, appliedType, t]);
 
     if (isLoading) {
         return <p>{t("statistics.loading")}</p>;
@@ -65,7 +129,15 @@ function StatisticsPage() {
                     <select
                         id="statistics-year"
                         value={selectedYear}
-                        onChange={(event) => setSelectedYear(event.target.value)}
+                        onChange={(event) => {
+                            const year = event.target.value;
+
+                            setSelectedYear(year);
+
+                            if (!year) {
+                                setSelectedMonth("");
+                            }
+                        }}
                     >
                         <option value="">
                             {t("statistics.filters.allYears")}
@@ -88,6 +160,7 @@ function StatisticsPage() {
                         id="statistics-month"
                         value={selectedMonth}
                         onChange={(event) => setSelectedMonth(event.target.value)}
+                        disabled={!selectedYear}
                     >
                         <option value="">
                             {t("statistics.filters.allMonths")}
@@ -137,6 +210,12 @@ function StatisticsPage() {
                     </select>
                 </div>
             </div>
+            <button
+                type="button"
+                onClick={handleApplyFilters}
+            >
+                {t("statistics.filters.apply")}
+            </button>
 
             <p>
                 {t("statistics.totalTrainings")}:{" "}
