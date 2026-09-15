@@ -50,7 +50,14 @@
         "trainingType": "Typ",
         "trainingDate": "Data",
         "trainingDuration": "Czas",
-        "trainingDistance": "Dystans"
+        "trainingDistance": "Dystans",
+        "monthlyStats": "Statystyka bieżącego miesiąca",
+        "totalTrainings": "Liczba treningów",
+        "totalDuration": "Łączny czas",
+        "totalDistance": "Łączny dystans",
+        "totalCalories": "Łączne kalorie",
+        "viewAllTrainings": "Zobacz wszystkie treningi",
+        "viewFullStatistics": "Zobacz pełne statystyki"
     },
 
     "profile": {

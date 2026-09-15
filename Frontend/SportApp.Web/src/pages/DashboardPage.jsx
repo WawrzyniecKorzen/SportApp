@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import { getCurrentUser } from "../api/userApi";
@@ -32,6 +33,43 @@ function DashboardPage() {
         }
     };
 
+    const loadMonthlyStats = async () => {
+        try {
+            const now = new Date();
+
+            const from = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                1,
+                0,
+                0,
+                0,
+                0
+            ).toISOString();
+
+            const to = new Date(
+                now.getFullYear(),
+                now.getMonth() + 1,
+                0,
+                23,
+                59,
+                59,
+                999
+            ).toISOString();
+
+            const data = await getTrainingStats({
+                from,
+                to
+            });
+
+            setMonthlyStats(data);
+        } catch (error) {
+            console.error("Get monthly stats error:", error);
+
+            setError(t("dashboard.loadError"));
+        }
+    };
+
     useEffect(() => {
         const loadUser = async () => {
             try {
@@ -49,6 +87,7 @@ function DashboardPage() {
 
         loadUser();
         loadRecentTrainings();
+        loadMonthlyStats();
     }, [t]);
 
     return (
@@ -105,6 +144,40 @@ function DashboardPage() {
                         ))}
                     </div>
                 )}
+                <Link to="/training">
+                    {t("dashboard.viewAllTrainings")}
+                </Link>
+            </section>
+
+            <section>
+                <h2>{t("dashboard.monthlyStats")}</h2>
+
+                {monthlyStats && (
+                    <div>
+                        <p>
+                            {t("dashboard.totalTrainings")}:{" "}
+                            {monthlyStats.totalTrainings}
+                        </p>
+
+                        <p>
+                            {t("dashboard.totalDuration")}:{" "}
+                            {monthlyStats.totalDuration} {t("training.minutes")}
+                        </p>
+
+                        <p>
+                            {t("dashboard.totalDistance")}:{" "}
+                            {monthlyStats.totalDistance} {t("training.kilometers")}
+                        </p>
+
+                        <p>
+                            {t("dashboard.totalCalories")}:{" "}
+                            {monthlyStats.totalCalories}
+                        </p>
+                    </div>
+                )}
+                <Link to="/statistics">
+                    {t("dashboard.viewFullStatistics")}
+                </Link>
             </section>
         </div>
     );

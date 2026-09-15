@@ -51,7 +51,14 @@
         "trainingType": "Type",
         "trainingDate": "Date",
         "trainingDuration": "Duration",
-        "trainingDistance": "Distance"
+        "trainingDistance": "Distance",
+        "monthlyStats": "Current month statistics",
+        "totalTrainings": "Number of trainings",
+        "totalDuration": "Total duration",
+        "totalDistance": "Total distance",
+        "totalCalories": "Total calories",
+        "viewAllTrainings": "View all trainings",
+        "viewFullStatistics": "View full statistics"
     },
 
     "profile": {
