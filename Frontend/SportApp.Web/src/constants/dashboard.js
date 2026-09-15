@@ -1,0 +1,1 @@
+export const RECENT_TRAININGS_LIMIT = 5;

@@ -45,7 +45,13 @@
         "email": "Email",
         "firstName": "First name",
         "lastName": "Last name",
-        "loadError": "Failed to load user data."
+        "loadError": "Failed to load user data.",
+        "recentTrainings": "Recent trainings",
+        "noRecentTrainings": "No trainings.",
+        "trainingType": "Type",
+        "trainingDate": "Date",
+        "trainingDuration": "Duration",
+        "trainingDistance": "Distance"
     },
 
     "profile": {

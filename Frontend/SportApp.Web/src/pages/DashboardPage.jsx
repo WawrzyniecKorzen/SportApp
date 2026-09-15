@@ -2,12 +2,35 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { getCurrentUser } from "../api/userApi";
+import { getTrainings, getTrainingStats } from "../api/trainingApi";
+import { RECENT_TRAININGS_LIMIT } from "../constants/dashboard";
 
 function DashboardPage() {
     const { t } = useTranslation();
 
     const [currentUser, setCurrentUser] = useState(null);
     const [error, setError] = useState("");
+    const [recentTrainings, setRecentTrainings] = useState([]);
+    const [monthlyStats, setMonthlyStats] = useState(null);
+
+
+    const loadRecentTrainings = async () => 
+    {
+        try 
+        {
+            const data = await getTrainings({
+                limit: RECENT_TRAININGS_LIMIT
+            });
+
+            setRecentTrainings(data.items);
+        } 
+        catch (error) 
+        {
+            console.error("Get recent trainings error:", error);
+
+            setError(t("dashboard.loadError"));
+        }
+    };
 
     useEffect(() => {
         const loadUser = async () => {
@@ -25,6 +48,7 @@ function DashboardPage() {
         };
 
         loadUser();
+        loadRecentTrainings();
     }, [t]);
 
     return (
@@ -48,6 +72,40 @@ function DashboardPage() {
                     </p>
                 </div>
             )}
+
+            <section>
+                <h2>{t("dashboard.recentTrainings")}</h2>
+
+                {recentTrainings.length === 0 ? (
+                    <p>{t("dashboard.noRecentTrainings")}</p>
+                ) : (
+                    <div>
+                        {recentTrainings.map((training) => (
+                            <div key={training.id}>
+                                <p>
+                                    {t("dashboard.trainingType")}:{" "}
+                                    {t(`training.types.${training.type}`)}
+                                </p>
+
+                                <p>
+                                    {t("dashboard.trainingDate")}:{" "}
+                                    {new Date(training.date).toLocaleDateString()}
+                                </p>
+
+                                <p>
+                                    {t("dashboard.trainingDuration")}:{" "}
+                                    {training.duration} {t("training.minutes")}
+                                </p>
+
+                                <p>
+                                    {t("dashboard.trainingDistance")}:{" "}
+                                    {training.distance} {t("training.kilometers")}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
         </div>
     );
 }

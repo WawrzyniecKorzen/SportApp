@@ -44,7 +44,13 @@
         "email": "Email",
         "firstName": "Imię",
         "lastName": "Nazwisko",
-        "loadError": "Nie udało się pobrać danych użytkownika."
+        "loadError": "Nie udało się pobrać danych użytkownika.",
+        "recentTrainings": "Ostatnie treningi",
+        "noRecentTrainings": "Brak treningów.",
+        "trainingType": "Typ",
+        "trainingDate": "Data",
+        "trainingDuration": "Czas",
+        "trainingDistance": "Dystans"
     },
 
     "profile": {
