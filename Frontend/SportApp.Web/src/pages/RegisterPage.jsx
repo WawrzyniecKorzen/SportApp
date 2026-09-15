@@ -2,6 +2,12 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { registerUser } from "../api/authApi";
+import {
+    MIN_PASSWORD_LENGTH,
+    MAX_PASSWORD_LENGTH
+} from "../constants/validation";
+
 function RegisterPage() 
 {
     const { t } = useTranslation();
@@ -14,14 +20,35 @@ function RegisterPage()
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSubmit = (event) => 
+    const handleSubmit = async (event) => 
     {
         event.preventDefault();
 
         setError("");
+        setIsLoading(true);
 
-        // Rejestrację podłączymy w następnym kroku.
+        try {
+            await registerUser(
+                firstName,
+                lastName,
+                email,
+                password
+            );
+
+            navigate("/login");
+        } catch (error) {
+            console.error("Registration error:", error);
+
+            if (error.response?.status === 409) {
+                setError(t("register.emailAlreadyExists"));
+            } else {
+                setError(t("register.registerError"));
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
+
     return (
         <div>
             <h1>{t("register.title")}</h1>
@@ -89,6 +116,8 @@ function RegisterPage()
                         onChange={(event) =>
                             setPassword(event.target.value)
                         }
+                        minLength={MIN_PASSWORD_LENGTH}
+                        maxLength={MAX_PASSWORD_LENGTH}
                         required
                     />
                 </div>

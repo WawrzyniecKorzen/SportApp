@@ -26,7 +26,10 @@
         "password": "Hasło",
         "submit": "Zarejestruj się",
         "registering": "Rejestrowanie...",
-        "backToLogin": "Powrót do logowania"
+        "backToLogin": "Powrót do logowania",
+        "emailAlreadyExists": "Konto z podanym adresem e-mail już istnieje.",
+        "registerError": "Nie udało się utworzyć konta.",
+        "passwordRequirements": "Hasło musi mieć od {{min}} do {{max}} znaków."
     },
 
     "navigation": {
