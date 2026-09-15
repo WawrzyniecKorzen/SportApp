@@ -159,5 +159,12 @@
             "totalDistance": "Łączny dystans",
             "totalCalories": "Łączne kalorie"
         }
+    },
+
+    "goodbye": {
+        "title": "Do zobaczenia!",
+        "message": "Zostałeś wylogowany.",
+        "login": "Zaloguj się",
+        "register": "Zarejestruj się"
     }
 }

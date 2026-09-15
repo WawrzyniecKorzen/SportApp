@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 import { AuthContext } from "./AuthContext";
 
@@ -34,13 +34,13 @@ function AuthProvider({ children }) {
     localStorage.setItem("user", JSON.stringify(updatedUser));
     };
 
-    const logout = () => {
+    const logout = useCallback(() => {
         setUser(null);
         setToken(null);
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-    };
+    }, []);
 
     return (
         <AuthContext.Provider

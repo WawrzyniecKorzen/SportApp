@@ -10,7 +10,6 @@ function MainLayout() {
     const navigate = useNavigate();
     const handleLogout = () => 
     {
-        logout();
         navigate("/goodbye");
     };
 

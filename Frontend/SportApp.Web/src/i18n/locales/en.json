@@ -160,5 +160,12 @@
             "totalCalories": "Total calories"
         }
         
+    },
+
+    "goodbye": {
+        "title": "See you!",
+        "message": "You have been logged out.",
+        "login": "Log in",
+        "register": "Register"
     }
 }
