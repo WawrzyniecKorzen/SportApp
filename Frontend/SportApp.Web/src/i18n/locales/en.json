@@ -22,6 +22,14 @@
         "register": "Register"
     },
 
+    "register": {
+        "title": "Registration",
+        "password": "Password",
+        "submit": "Register",
+        "registering": "Registering...",
+        "backToLogin": "Back to login"
+    },
+
     "navigation": {
         "dashboard": "Dashboard",
         "training": "Training",

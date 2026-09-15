@@ -21,6 +21,13 @@
         "loggingIn": "Logowanie...",
         "register": "Rejestracja"
     },
+    "register": {
+        "title": "Rejestracja",
+        "password": "Hasło",
+        "submit": "Zarejestruj się",
+        "registering": "Rejestrowanie...",
+        "backToLogin": "Powrót do logowania"
+    },
 
     "navigation": {
         "dashboard": "Strona Główna",
