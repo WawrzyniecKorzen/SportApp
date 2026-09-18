@@ -1,0 +1,324 @@
+/* TrainingPage.css */
+
+.training-page {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+  padding: 40px 24px;
+
+  color: #1f2937;
+}
+
+/* Tytuł */
+.training-page > h1 {
+  margin: 0 0 24px;
+
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Przycisk dodawania treningu */
+.training-page > button {
+  display: block;
+
+  width: 100%;
+  max-width: 1000px;
+  height: 46px;
+
+  margin: 0 auto 24px;
+
+  padding: 0 18px;
+
+  color: #ffffff;
+  background: #4f46e5;
+
+  border: 1px solid #4f46e5;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.training-page > button:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+.training-page > button:active {
+  transform: translateY(1px);
+}
+
+/* Panel filtrów */
+.training-page > div:first-of-type {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+
+  margin-bottom: 24px;
+  padding: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+/* Pojedynczy filtr */
+.training-page > div:first-of-type > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Label */
+.training-page label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Input i select */
+.training-page input,
+.training-page select {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 14px;
+
+  color: #111827;
+  background: #ffffff;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.training-page input:hover,
+.training-page select:hover {
+  border-color: #9ca3af;
+}
+
+.training-page input:focus,
+.training-page select:focus {
+  border-color: #4f46e5;
+
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Przyciski filtrów */
+.training-page > div:first-of-type > button {
+  height: 46px;
+
+  align-self: end;
+
+  padding: 0 18px;
+
+  color: #ffffff;
+  background: #4f46e5;
+
+  border: 1px solid #4f46e5;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.training-page > div:first-of-type > button:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+/*
+ * Reset filtrów
+ * Jest drugim przyciskiem w panelu.
+ */
+.training-page > div:first-of-type > button:last-child {
+  color: #4f46e5;
+  background: #ffffff;
+
+  border-color: #c7d2fe;
+}
+
+.training-page > div:first-of-type > button:last-child:hover {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+}
+
+/* Komunikat błędu / pustej listy */
+.training-page > p {
+  max-width: 100%;
+
+  margin: 0 0 24px;
+  padding: 16px;
+
+  text-align: center;
+
+  color: #6b7280;
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+/* Lista treningów */
+.training-page > div:nth-of-type(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Pojedynczy trening */
+.training-page > div:nth-of-type(2) > div {
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.04);
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
+}
+
+.training-page > div:nth-of-type(2) > div:hover {
+  border-color: #c7d2fe;
+
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+
+  transform: translateY(-1px);
+}
+
+/* Tytuł treningu */
+.training-page > div:nth-of-type(2) h2 {
+  margin: 0 0 8px;
+
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Data treningu */
+.training-page > div:nth-of-type(2) p {
+  margin: 0;
+
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Paginacja */
+.training-page > div:nth-of-type(3) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+/* Przyciski paginacji */
+.training-page > div:nth-of-type(3) button {
+  min-width: 110px;
+  height: 40px;
+
+  padding: 0 14px;
+
+  color: #4f46e5;
+  background: #ffffff;
+
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.training-page > div:nth-of-type(3) button:hover:not(:disabled) {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+}
+
+.training-page > div:nth-of-type(3) button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Numer strony */
+.training-page > div:nth-of-type(3) span {
+  color: #4b5563;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Responsywność */
+@media (max-width: 700px) {
+  .training-page {
+    padding: 24px 16px;
+  }
+
+  .training-page > h1 {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .training-page > div:first-of-type {
+    grid-template-columns: 1fr;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .training-page > div:first-of-type > button {
+    width: 100%;
+  }
+
+  .training-page > div:nth-of-type(2) > div {
+    padding: 16px;
+  }
+
+  .training-page > div:nth-of-type(3) {
+    gap: 8px;
+  }
+
+  .training-page > div:nth-of-type(3) button {
+    min-width: auto;
+    flex: 1;
+  }
+}

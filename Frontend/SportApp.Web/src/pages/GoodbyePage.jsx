@@ -1,37 +1,33 @@
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
-import { useAuth } from "../context/useAuth";
+import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
+import { useEffect } from "react"
+import { useAuth } from "../context/useAuth"
 
-function GoodbyePage() 
-{
-    const { t } = useTranslation();
-    const { logout } = useAuth();
+import "../styles/GoodbyePage.css"
 
-    useEffect(() => 
-    {
-        logout();
-    }, [logout]);
-    
-    return (
-        <div>
-            <h1>{t("goodbye.title")}</h1>
+function GoodbyePage() {
+  const { t } = useTranslation()
+  const { logout } = useAuth()
 
-            <p>{t("goodbye.message")}</p>
+  useEffect(() => {
+    logout()
+  }, [logout])
 
-            <div>
-                <Link to="/login">
-                    {t("goodbye.login")}
-                </Link>
+  return (
+    <div className="goodbye-page">
+      <h1>{t("goodbye.title")}</h1>
 
-                {" | "}
+      <p>{t("goodbye.message")}</p>
 
-                <Link to="/register">
-                    {t("goodbye.register")}
-                </Link>
-            </div>
-        </div>
-    );
+      <div>
+        <Link to="/login">{t("goodbye.login")}</Link>
+
+        {" | "}
+
+        <Link to="/register">{t("goodbye.register")}</Link>
+      </div>
+    </div>
+  )
 }
 
-export default GoodbyePage;
+export default GoodbyePage

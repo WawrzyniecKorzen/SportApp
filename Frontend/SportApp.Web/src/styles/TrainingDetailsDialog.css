@@ -1,0 +1,376 @@
+/* TrainingDetailsDialog.css */
+
+.training-details-dialog {
+  /* Odstęp od krawędzi ekranu */
+  width: calc(100% - 48px);
+  max-width: 520px;
+
+  margin: 24px auto;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  color: #1f2937;
+  background: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+
+  font-family: inherit;
+
+  overflow: hidden;
+}
+
+/* =========================
+   TŁO
+   ========================= */
+
+.training-details-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.35);
+}
+
+/* =========================
+   TYTUŁ
+   ========================= */
+
+.training-details-dialog__title {
+  margin: 0;
+  padding: 20px 24px;
+
+  color: #111827;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* =========================
+   SZCZEGÓŁY
+   ========================= */
+
+.training-details-dialog__details {
+  padding: 16px 24px 20px;
+}
+
+.training-details-dialog__details p {
+  margin: 0;
+  padding: 7px 0;
+
+  color: #6b7280;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.training-details-dialog__details span {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* =========================
+   FORMULARZ
+   ========================= */
+
+.training-details-dialog__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  padding: 20px 24px 24px;
+
+  box-sizing: border-box;
+}
+
+/* =========================
+   POLE
+   ========================= */
+
+.training-details-dialog__field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* =========================
+   LABEL
+   ========================= */
+
+.training-details-dialog__field label {
+  color: #374151;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   INPUT / SELECT / TEXTAREA
+   ========================= */
+
+.training-details-dialog__field input,
+.training-details-dialog__field select,
+.training-details-dialog__field textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  color: #111827;
+  background: #ffffff;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.training-details-dialog__field input,
+.training-details-dialog__field select {
+  height: 46px;
+
+  padding: 0 14px;
+}
+
+.training-details-dialog__field textarea {
+  min-height: 100px;
+
+  padding: 10px 14px;
+
+  line-height: 1.5;
+
+  resize: vertical;
+}
+
+/* Hover */
+
+.training-details-dialog__field input:hover,
+.training-details-dialog__field select:hover,
+.training-details-dialog__field textarea:hover {
+  border-color: #9ca3af;
+}
+
+/* Focus */
+
+.training-details-dialog__field input:focus,
+.training-details-dialog__field select:focus,
+.training-details-dialog__field textarea:focus {
+  border-color: #4f46e5;
+
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Disabled */
+
+.training-details-dialog__field input:disabled {
+  color: #9ca3af;
+  background: #f9fafb;
+
+  border-color: #e5e7eb;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   BŁĄD
+   ========================= */
+
+.training-details-dialog__error {
+  margin: 0;
+
+  padding: 12px 14px;
+
+  color: #b91c1c;
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* =========================
+   PRZYCISKI
+   ========================= */
+
+.training-details-dialog button {
+  box-sizing: border-box;
+
+  min-height: 46px;
+
+  padding: 0 18px;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease,
+    opacity 0.2s ease;
+}
+
+.training-details-dialog button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* =========================
+   GRUPA PRZYCISKÓW
+   ========================= */
+
+.training-details-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* =========================
+   EDYTUJ
+   ========================= */
+
+.training-details-dialog__edit {
+  display: block;
+
+  width: calc(100% - 48px);
+
+  margin: 0 24px 10px;
+
+  color: #ffffff;
+  background: #4f46e5;
+
+  border: 1px solid #4f46e5;
+}
+
+.training-details-dialog__edit:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+/* =========================
+   ZAPISZ
+   ========================= */
+
+.training-details-dialog__save {
+  width: 100%;
+
+  color: #ffffff;
+  background: #4f46e5;
+
+  border: 1px solid #4f46e5;
+}
+
+.training-details-dialog__save:hover:not(:disabled) {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+/* =========================
+   ANULUJ
+   ========================= */
+
+.training-details-dialog__cancel {
+  width: 100%;
+
+  color: #4f46e5;
+  background: #ffffff;
+
+  border: 1px solid #c7d2fe;
+}
+
+.training-details-dialog__cancel:hover {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+}
+
+/* =========================
+   STOPKA
+   ========================= */
+
+.training-details-dialog__footer {
+  padding: 0 24px 24px;
+}
+
+/* =========================
+   ZAMKNIJ
+   ========================= */
+
+.training-details-dialog__close {
+  display: block;
+
+  width: 100%;
+
+  color: #4b5563;
+  background: #ffffff;
+
+  border: 1px solid #d1d5db;
+}
+
+.training-details-dialog__close:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+/* =========================
+   DISABLED
+   ========================= */
+
+.training-details-dialog button:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+  .training-details-dialog {
+    width: calc(100% - 32px);
+
+    margin: 16px auto;
+
+    border-radius: 12px;
+  }
+
+  .training-details-dialog__title {
+    padding: 18px 20px;
+
+    font-size: 20px;
+  }
+
+  .training-details-dialog__details {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .training-details-dialog__form {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .training-details-dialog__edit {
+    width: calc(100% - 40px);
+
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .training-details-dialog__footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

@@ -1,141 +1,115 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useNavigate } from "react-router-dom"
 
-import { registerUser } from "../api/authApi";
+import { registerUser } from "../api/authApi"
 import {
-    MIN_PASSWORD_LENGTH,
-    MAX_PASSWORD_LENGTH
-} from "../constants/validation";
+  MIN_PASSWORD_LENGTH,
+  MAX_PASSWORD_LENGTH,
+} from "../constants/validation"
 
-function RegisterPage() 
-{
-    const { t } = useTranslation();
-    const navigate = useNavigate();
+import "../styles/RegisterPage.css"
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+function RegisterPage() {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
 
-    const handleSubmit = async (event) => 
-    {
-        event.preventDefault();
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
-        setError("");
-        setIsLoading(true);
+  const handleSubmit = async (event) => {
+    event.preventDefault()
 
-        try {
-            await registerUser(
-                firstName,
-                lastName,
-                email,
-                password
-            );
+    setError("")
+    setIsLoading(true)
 
-            navigate("/login");
-        } catch (error) {
-            console.error("Registration error:", error);
+    try {
+      await registerUser(firstName, lastName, email, password)
 
-            if (error.response?.status === 409) {
-                setError(t("register.emailAlreadyExists"));
-            } else {
-                setError(t("register.registerError"));
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };
+      navigate("/login")
+    } catch (error) {
+      console.error("Registration error:", error)
 
-    return (
+      if (error.response?.status === 409) {
+        setError(t("register.emailAlreadyExists"))
+      } else {
+        setError(t("register.registerError"))
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <div className="register-page">
+      <h1>{t("register.title")}</h1>
+
+      {error && <p>{error}</p>}
+
+      <form onSubmit={handleSubmit}>
         <div>
-            <h1>{t("register.title")}</h1>
+          <label htmlFor="firstName">{t("profile.firstName")}</label>
 
-            {error && <p>{error}</p>}
-
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="firstName">
-                        {t("profile.firstName")}
-                    </label>
-
-                    <input
-                        id="firstName"
-                        type="text"
-                        value={firstName}
-                        onChange={(event) =>
-                            setFirstName(event.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="lastName">
-                        {t("profile.lastName")}
-                    </label>
-
-                    <input
-                        id="lastName"
-                        type="text"
-                        value={lastName}
-                        onChange={(event) =>
-                            setLastName(event.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="email">
-                        {t("profile.email")}
-                    </label>
-
-                    <input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(event) =>
-                            setEmail(event.target.value)
-                        }
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="password">
-                        {t("register.password")}
-                    </label>
-
-                    <input
-                        id="password"
-                        type="password"
-                        value={password}
-                        onChange={(event) =>
-                            setPassword(event.target.value)
-                        }
-                        minLength={MIN_PASSWORD_LENGTH}
-                        maxLength={MAX_PASSWORD_LENGTH}
-                        required
-                    />
-                </div>
-
-                <button type="submit" disabled={isLoading}>
-                    {isLoading
-                        ? t("register.registering")
-                        : t("register.submit")}
-                </button>
-            </form>
-            <button
-                type="button"
-                onClick={() => navigate("/login")}
-            >
-                {t("register.backToLogin")}
-            </button>
+          <input
+            id="firstName"
+            type="text"
+            value={firstName}
+            onChange={(event) => setFirstName(event.target.value)}
+            required
+          />
         </div>
-    );
+
+        <div>
+          <label htmlFor="lastName">{t("profile.lastName")}</label>
+
+          <input
+            id="lastName"
+            type="text"
+            value={lastName}
+            onChange={(event) => setLastName(event.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email">{t("profile.email")}</label>
+
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+        </div>
+
+        <div>
+          <label htmlFor="password">{t("register.password")}</label>
+
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            minLength={MIN_PASSWORD_LENGTH}
+            maxLength={MAX_PASSWORD_LENGTH}
+            required
+          />
+        </div>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? t("register.registering") : t("register.submit")}
+        </button>
+      </form>
+      <button type="button" onClick={() => navigate("/login")}>
+        {t("register.backToLogin")}
+      </button>
+    </div>
+  )
 }
 
-export default RegisterPage;
+export default RegisterPage

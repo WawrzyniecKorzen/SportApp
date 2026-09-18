@@ -1,320 +1,334 @@
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useTranslation } from "react-i18next"
+import { useState } from "react"
 
-import { updateTraining, getTrainingById, createTraining } from "../../api/trainingApi";
-import { getUtcDate } from "../../helpers/dateUtils";
+import {
+  updateTraining,
+  getTrainingById,
+  createTraining,
+} from "../../api/trainingApi"
 
-function formatTrainingDate(date)
-{
-    return new Date(date).toLocaleString("pl-PL");
+import { getUtcDate } from "../../helpers/dateUtils"
+
+import "../../styles/TrainingDetailsDialog.css"
+
+function formatTrainingDate(date) {
+  return new Date(date).toLocaleString("pl-PL")
 }
 
-function formatDateTimeLocal(date)
-{
-    const localDate = new Date(date);
-    const offset = localDate.getTimezoneOffset();
+function formatDateTimeLocal(date) {
+  const localDate = new Date(date)
+  const offset = localDate.getTimezoneOffset()
 
-    const adjustedDate = new Date(
-        localDate.getTime() - offset * 60000
-    );
+  const adjustedDate = new Date(localDate.getTime() - offset * 60000)
 
-    return adjustedDate.toISOString().slice(0, 16);
+  return adjustedDate.toISOString().slice(0, 16)
 }
 
+function TrainingDetailsDialog({
+  training,
+  isCreating,
+  onClose,
+  onUpdated,
+  onCreated,
+}) {
+  const { t } = useTranslation()
 
+  const [isEditing, setIsEditing] = useState(false)
 
-function TrainingDetailsDialog({ training, isCreating, onClose, onUpdated, onCreated })
-{
-    const { t } = useTranslation();
-    const [isEditing, setIsEditing] = useState(false);
+  const [type, setType] = useState(training?.type ?? "Running")
 
-    const [type, setType] = useState(training?.type ?? "Running");
-    const [date, setDate] = useState(training ? formatDateTimeLocal(training.date) : "");
-    const [duration, setDuration] = useState(training?.duration ?? "");
-    const [distance, setDistance] = useState(training?.distance ?? "");
-    const [calories, setCalories] = useState(training?.calories ?? "");
-    const [description, setDescription] = useState(training?.description ?? "");
+  const [date, setDate] = useState(
+    training ? formatDateTimeLocal(training.date) : "",
+  )
 
-    const [isSaving, setIsSaving] = useState(false);
-    const [saveError, setSaveError] = useState("");
+  const [duration, setDuration] = useState(training?.duration ?? "")
 
-    const startEditing = () =>
-    {
-        if (!training)
-        {
-            return;
-        }
+  const [distance, setDistance] = useState(training?.distance ?? "")
 
-        setType(training.type);
-        setDate(formatDateTimeLocal(training.date));
-        setDuration(training.duration);
-        setDistance(training.distance);
-        setCalories(training.calories);
-        setDescription(training.description ?? "");
+  const [calories, setCalories] = useState(training?.calories ?? "")
 
-        setIsEditing(true);
-    };
+  const [description, setDescription] = useState(training?.description ?? "")
 
-    const handleClose = () =>
-    {
-        setIsEditing(false);
-        onClose();
-    };
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState("")
 
-    const handleSave = async (event) =>
-    {
-        event.preventDefault();
+  const startEditing = () => {
+    if (!training) {
+      return
+    }
 
-        setSaveError("");
-        if (!date)
-        {
-            setSaveError(t("validation.dateRequired"));
-            return;
-        }
-        if (!duration || Number(duration) <= 0)
-        {
-            setSaveError(t("validation.durationRequired"));
-            return;
-        }
-        if (!duration || Number(duration) <= 0)
-        {
-            setSaveError(t("training.validation.durationRequired"));
-            return;
-        }
-        if (type !== "Gym" && (!distance || Number(distance) <= 0))
-        {
-            setSaveError(t("training.validation.distanceRequired"));
-            return;
-        }
+    setType(training.type)
+    setDate(formatDateTimeLocal(training.date))
+    setDuration(training.duration)
+    setDistance(training.distance)
+    setCalories(training.calories)
+    setDescription(training.description ?? "")
 
-        setIsSaving(true);
+    setSaveError("")
+    setIsEditing(true)
+  }
 
-        try
-        {
-            if (isCreating)
-            {
-                const newTraining = await createTraining({
-                    type,
-                    date: getUtcDate(date),
-                    duration: Number(duration),
-                    distance: Number(distance),
-                    calories: Number(calories),
-                    description
-                });
+  const handleClose = () => {
+    setIsEditing(false)
+    setSaveError("")
 
-                onCreated(newTraining);
-            }
-            else
-            {
-                await updateTraining(
-                    training.id,
-                    {
-                        type,
-                        date: getUtcDate(date),
-                        duration: Number(duration),
-                        distance: Number(distance),
-                        calories: Number(calories),
-                        description
-                    }
-                );
-                const updatedTraining = await getTrainingById(training.id);
+    onClose()
+  }
 
-                onUpdated(updatedTraining);
-            }
-            setIsEditing(false);
-        }
-        catch (error)
-        {
-            console.error("Update training error:", error);
-            setSaveError(t("training.updateError"));
-        }
-        finally
-        {
-            setIsSaving(false);
-        }
-    };
+  const handleSave = async (event) => {
+    event.preventDefault()
 
-    return (
-        <dialog open>
-            
+    setSaveError("")
 
-            {!isEditing && !isCreating ? (
-                <>
-                    <h2>
-                        {t(`training.types.${training.type}`)}
-                    </h2>
+    if (!date) {
+      setSaveError(t("training.validation.dateRequired"))
+      return
+    }
 
-                    <p>
-                        {t("training.date")}:{" "}
-                        {formatTrainingDate(training.date)}
-                    </p>
+    if (!duration || Number(duration) <= 0) {
+      setSaveError(t("training.validation.durationRequired"))
+      return
+    }
 
-                    <p>
-                        {t("training.duration")}:{" "}
-                        {training.duration}{" "}
-                        {t("training.minutes")}
-                    </p>
+    if (type !== "Gym" && (!distance || Number(distance) <= 0)) {
+      setSaveError(t("training.validation.distanceRequired"))
 
-                    <p>
-                        {t("training.distance")}:{" "}
-                        {training.distance}{" "}
-                        {t("training.kilometers")}
-                    </p>
+      return
+    }
 
-                    <p>
-                        {t("training.calories")}:{" "}
-                        {training.calories}
-                    </p>
+    setIsSaving(true)
 
-                    {training.description && (
-                        <p>
-                            {t("training.description")}:{" "}
-                            {training.description}
-                        </p>
-                    )}
+    try {
+      const trainingData = {
+        type,
+        date: getUtcDate(date),
+        duration: Number(duration),
+        distance: Number(distance),
+        calories: Number(calories),
+        description,
+      }
 
-                    <button
-                        type="button"
-                        onClick={startEditing}
-                    >
-                        {t("common.edit")}
-                    </button>
-                </>
-            ) : (
-                <>
-                {isCreating && (<h2>{t("training.add")}</h2>)}
+      if (isCreating) {
+        const newTraining = await createTraining(trainingData)
 
-                <form onSubmit={handleSave}>
-                    <div>
-                        <label>
-                            {t("training.type")}
-                        </label>
+        onCreated(newTraining)
+      } else {
+        await updateTraining(training.id, trainingData)
 
-                        <select
-                            value={type}
-                            onChange={(event) =>
-                                {
-                                    const newType = event.target.value;
+        const updatedTraining = await getTrainingById(training.id)
 
-                                    setType(newType);
+        onUpdated(updatedTraining)
+      }
 
-                                    if (newType === "Gym")
-                                    {
-                                        setDistance(0);
-                                    }
-                                }
-                            }
-                        >
-                            <option value="Running">
-                                {t("training.types.Running")}
-                            </option>
+      setIsEditing(false)
+    } catch (error) {
+      console.error("Update training error:", error)
 
-                            <option value="Cycling">
-                                {t("training.types.Cycling")}
-                            </option>
+      setSaveError(t("training.updateError"))
+    } finally {
+      setIsSaving(false)
+    }
+  }
 
-                            <option value="Walking">
-                                {t("training.types.Walking")}
-                            </option>
+  return (
+    <dialog open className="training-details-dialog">
+      {!isEditing && !isCreating ? (
+        <>
+          <h2 className="training-details-dialog__title">
+            {t(`training.types.${training.type}`)}
+          </h2>
 
-                            <option value="Gym">
-                                {t("training.types.Gym")}
-                            </option>
+          <div className="training-details-dialog__details">
+            <p>
+              <span>{t("training.date")}:</span>{" "}
+              {formatTrainingDate(training.date)}
+            </p>
 
-                            <option value="Swimming">
-                                {t("training.types.Swimming")}
-                            </option>
-                        </select>
-                    </div>
+            <p>
+              <span>{t("training.duration")}:</span> {training.duration}{" "}
+              {t("training.minutes")}
+            </p>
 
-                    <div>
-                        <label>
-                            {t("training.date")}
-                        </label>
+            <p>
+              <span>{t("training.distance")}:</span> {training.distance}{" "}
+              {t("training.kilometers")}
+            </p>
 
-                        <input
-                            type="datetime-local"
-                            value={date}
-                            onChange={(event) => setDate(event.target.value)}
-                        />
-                    </div>
+            <p>
+              <span>{t("training.calories")}:</span> {training.calories}
+            </p>
 
-                    <div>
-                        <label>
-                            {t("training.duration")}
-                        </label>
-
-                        <input
-                            type="number"
-                            value={duration}
-                            onChange={(event) => setDuration(event.target.value)}
-                        />
-                    </div>
-
-                    <div>
-                        <label>
-                            {t("training.distance")}
-                        </label>
-
-                        <input
-                            type="number"
-                            step="0.01"
-                            value={distance}
-                            onChange={(event) => setDistance(event.target.value)}
-                            disabled={type === "Gym"}
-                        />
-                    </div>
-
-                    <div>
-                        <label>
-                            {t("training.calories")}
-                        </label>
-
-                        <input
-                            type="number"
-                            value={calories}
-                            onChange={(event) => setCalories(event.target.value)}
-                        />
-                    </div>
-
-                    <div>
-                        <label>
-                            {t("training.description")}
-                        </label>
-
-                        <textarea
-                            value={description}
-                            onChange={(event) => setDescription(event.target.value)}
-                        />
-                    </div>
-                    {saveError && <p>{saveError}</p>}
-                    <button
-                        type="submit"
-                        disabled={isSaving}
-                    >
-                        {isSaving
-                            ? t("training.saving")
-                            : t("common.save")}
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleClose}
-                    >
-                        {t("common.cancel")}
-                    </button>
-                </form>
-                </>
+            {training.description && (
+              <p>
+                <span>{t("training.description")}:</span> {training.description}
+              </p>
             )}
+          </div>
+
+          <div className="training-details-dialog__actions">
+            <button
+              className="training-details-dialog__edit"
+              type="button"
+              onClick={startEditing}
+            >
+              {t("common.edit")}
+            </button>
 
             <button
+              className="training-details-dialog__close"
+              type="button"
+              onClick={handleClose}
+            >
+              {t("common.close")}
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          {isCreating && (
+            <h2 className="training-details-dialog__title">
+              {t("training.add")}
+            </h2>
+          )}
+
+          {!isCreating && (
+            <h2 className="training-details-dialog__title">
+              {t("common.edit")}
+            </h2>
+          )}
+
+          <form className="training-details-dialog__form" onSubmit={handleSave}>
+            <div className="training-details-dialog__field">
+              <label htmlFor="training-type">{t("training.type")}</label>
+
+              <select
+                id="training-type"
+                value={type}
+                onChange={(event) => {
+                  const newType = event.target.value
+
+                  setType(newType)
+
+                  if (newType === "Gym") {
+                    setDistance(0)
+                  }
+                }}
+              >
+                <option value="Running">{t("training.types.Running")}</option>
+
+                <option value="Cycling">{t("training.types.Cycling")}</option>
+
+                <option value="Walking">{t("training.types.Walking")}</option>
+
+                <option value="Gym">{t("training.types.Gym")}</option>
+
+                <option value="Swimming">{t("training.types.Swimming")}</option>
+              </select>
+            </div>
+
+            <div className="training-details-dialog__field">
+              <label htmlFor="training-date">{t("training.date")}</label>
+
+              <input
+                id="training-date"
+                type="datetime-local"
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+              />
+            </div>
+
+            <div className="training-details-dialog__field">
+              <label htmlFor="training-duration">
+                {t("training.duration")}
+              </label>
+
+              <input
+                id="training-duration"
+                type="number"
+                min="1"
+                value={duration}
+                onChange={(event) => setDuration(event.target.value)}
+              />
+            </div>
+
+            <div className="training-details-dialog__field">
+              <label htmlFor="training-distance">
+                {t("training.distance")}
+              </label>
+
+              <input
+                id="training-distance"
+                type="number"
+                min="0"
+                step="0.01"
+                value={distance}
+                onChange={(event) => setDistance(event.target.value)}
+                disabled={type === "Gym"}
+              />
+            </div>
+
+            <div className="training-details-dialog__field">
+              <label htmlFor="training-calories">
+                {t("training.calories")}
+              </label>
+
+              <input
+                id="training-calories"
+                type="number"
+                min="0"
+                value={calories}
+                onChange={(event) => setCalories(event.target.value)}
+              />
+            </div>
+
+            <div className="training-details-dialog__field">
+              <label htmlFor="training-description">
+                {t("training.description")}
+              </label>
+
+              <textarea
+                id="training-description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              />
+            </div>
+
+            {saveError && (
+              <p className="training-details-dialog__error">{saveError}</p>
+            )}
+
+            <div className="training-details-dialog__actions">
+              <button
+                className="training-details-dialog__save"
+                type="submit"
+                disabled={isSaving}
+              >
+                {isSaving ? t("training.saving") : t("common.save")}
+              </button>
+
+              <button
+                className="training-details-dialog__cancel"
                 type="button"
                 onClick={handleClose}
+              >
+                {t("common.cancel")}
+              </button>
+            </div>
+          </form>
+
+          <div className="training-details-dialog__footer">
+            <button
+              className="training-details-dialog__close"
+              type="button"
+              onClick={handleClose}
             >
-                {t("common.close")}
+              {t("common.close")}
             </button>
-        </dialog>
-    );
+          </div>
+        </>
+      )}
+    </dialog>
+  )
 }
 
-export default TrainingDetailsDialog;
+export default TrainingDetailsDialog

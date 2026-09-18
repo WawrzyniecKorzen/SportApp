@@ -1,0 +1,234 @@
+/* ProfilePage.css */
+
+.profile-page {
+  width: 100%;
+  padding: 40px 24px;
+  color: #1f2937;
+}
+
+/* Tytuł */
+.profile-page > h1 {
+  max-width: 600px;
+  margin: 0 auto 32px;
+
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Komunikaty */
+.profile-page > p {
+  max-width: 600px;
+  margin: 0 auto 16px;
+
+  padding: 12px 16px;
+
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+/* Błąd */
+.profile-page > p:first-of-type {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+/* Sukces */
+.profile-page > p:nth-of-type(2) {
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+/* Karta profilu */
+.profile-page > div {
+  max-width: 600px;
+  margin: 0 auto;
+
+  padding: 28px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+/* Dane użytkownika */
+.profile-page > div > p {
+  margin: 0;
+  padding: 12px 0;
+
+  color: #374151;
+  font-size: 15px;
+}
+
+.profile-page > div > p + p {
+  border-top: 1px solid #f3f4f6;
+}
+
+/* Formularz */
+.profile-page form {
+  max-width: 600px;
+  margin: 0 auto;
+
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+/* Pola formularza */
+.profile-page form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Label */
+.profile-page label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* Input */
+.profile-page input {
+  width: 100%;
+  height: 46px;
+
+  padding: 0 14px;
+
+  font-size: 15px;
+  color: #111827;
+
+  background: #ffffff;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.profile-page input:hover {
+  border-color: #9ca3af;
+}
+
+.profile-page input:focus {
+  border-color: #4f46e5;
+
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* Przyciski */
+.profile-page button {
+  height: 46px;
+
+  padding: 0 18px;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease,
+    opacity 0.2s ease;
+}
+
+/* Przycisk edycji */
+.profile-page > div > button {
+  width: 100%;
+  margin-top: 20px;
+
+  color: #ffffff;
+  background: #4f46e5;
+
+  border: 1px solid #4f46e5;
+}
+
+.profile-page > div > button:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+/* Przycisk zapisu */
+.profile-page form button[type="submit"] {
+  color: #ffffff;
+  background: #4f46e5;
+
+  border: 1px solid #4f46e5;
+}
+
+.profile-page form button[type="submit"]:hover:not(:disabled) {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+/* Przycisk anulowania */
+.profile-page form button[type="button"] {
+  color: #4f46e5;
+  background: #ffffff;
+
+  border: 1px solid #c7d2fe;
+}
+
+.profile-page form button[type="button"]:hover:not(:disabled) {
+  background: #eef2ff;
+  border-color: #a5b4fc;
+}
+
+/* Wyłączone przyciski */
+.profile-page button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Loading */
+.profile-page > p:only-child {
+  max-width: 600px;
+  margin: 40px auto;
+
+  padding: 20px;
+
+  text-align: center;
+
+  color: #6b7280;
+  background: transparent;
+  border: none;
+}
+
+/* Responsywność */
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 24px 16px;
+  }
+
+  .profile-page > h1 {
+    font-size: 26px;
+    margin-bottom: 24px;
+  }
+
+  .profile-page > div,
+  .profile-page form {
+    padding: 20px;
+    border-radius: 12px;
+  }
+}
